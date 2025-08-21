@@ -1,6 +1,7 @@
 site_name: PowerBI Notes # You can change this to anything you like
 site_url: https://numanbadr.github.io/power-bi-notes/ # IMPORTANT: Update this line!
-
+repo_url: https://github.com/numanbadr/power-bi-notes/
+use_directory_urls: true
 nav:
   - Home: index.md
   - My Notes: notes.md # We'll add this file in the next step
