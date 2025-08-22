@@ -1,0 +1,32 @@
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+
+# --- Virtual environments ---
+.venv/
+env/
+venv/
+
+# --- Python version managers ---
+.python-version
+.pyenv/
+
+# --- Dependency / build artifacts ---
+uv.lock
+*.egg-info/
+dist/
+build/
+
+# --- MkDocs site output ---
+site/
+
+# --- Editor / IDE settings ---
+.vscode/
+.idea/
+
+# --- System files ---
+.DS_Store
+Thumbs.db
