@@ -5,7 +5,7 @@ site_dir: site
 use_directory_urls: true
 docs_dir: docs
 nav:
-  - Home: index.md
+  - Home: notes.md
   - My Notes: notes.md # We'll add this file in the next step
 
 theme:
