@@ -5,10 +5,9 @@ site_dir: site
 use_directory_urls: true
 docs_dir: docs
 nav:
-  - Home: index.md
-  - Intro: 
-    - PowerBI: intro/intro-to-powerbi.md
-    - PL-300: intro/about-pl-300.md
+  - Home: 
+    - PowerBI: index.md
+    # - PL-300: intro/about-pl-300.md
   - PowerBI:
     # - Import Data: 
     #   - File Types: power-bi/import-data/file-types.md
@@ -32,20 +31,19 @@ theme:
 
   palette: 
       # Palette toggle for light mode
-    - media: "(prefers-color-scheme: light)"
-      primary: amber
-      scheme: default
-      toggle:
-          icon: material/weather-sunny
-          name: Switch to dark mode
+      - scheme: default
+        primary: amber
+        toggle:
+            icon: material/weather-sunny
+            name: Switch to dark mode
     
     # Palette toggle for dark mode
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
-      primary: deep orange
-      toggle:
-        icon: material/brightness-4
-        name: Switch to light mode
+
+      - scheme: slate
+        primary: deep orange
+        toggle:
+          icon: material/brightness-4
+          name: Switch to light mode
   
   features:
     - navigation.tabs
