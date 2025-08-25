@@ -1,0 +1,138 @@
+/* --- T3 Chat :: Modern Yellow Theme for MkDocs --- */
+
+/* 1. CORE PALETTE DEFINITION
+   We define the primary color and a new, high-contrast color for text/links.
+   This ensures readability, especially in light mode.
+*/
+:root {
+  /* Primary color: Your chosen medium yellow. Used for the header, etc. */
+  --md-primary-fg-color: #f2cb3f;
+
+  /* A deep, complementary teal for high-contrast text and links in light mode */
+  --md-typeset-link-color: #005f73; /* WCAG AAA compliant on white */
+}
+
+/* 2. LIGHT MODE (default)
+   - The header uses your primary yellow.
+   - The accent color (for links, highlights) uses our high-contrast teal.
+   - We slightly soften the main background from pure white.
+*/
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color--light: #f6e07c;
+  --md-primary-fg-color--dark: #dc9d0f;
+
+  /* Use the high-contrast color for accents (links, etc.) */
+  --md-accent-fg-color: #005f73;
+
+  /* Slightly off-white background for a softer feel */
+  --md-default-bg-color: #fafafa;
+  /* Slightly darker background for cards */
+  --md-card-bg-color: #f5f5f5;
+  --md-card-border-color: #e0e0e0;
+}
+
+/* 3. DARK MODE (slate)
+   - We use a softer, less intense black for the background to reduce eye strain.
+   - The primary yellow is kept for brand consistency.
+   - A lighter, more vibrant yellow is used for accents to ensure they pop.
+*/
+[data-md-color-scheme="slate"] {
+  /* A softer dark background than pure black */
+  --md-default-bg-color: #212121;
+  --md-default-bg-color--light: #2c2c2c;
+  --md-default-bg-color--lighter: #3a3a3a;
+  --md-default-bg-color--lightest: #4f4f4f;
+
+  /* Keep the primary color consistent */
+  --md-primary-fg-color: #f2cb3f;
+
+  /* Use a lighter, more vibrant yellow for accents in dark mode */
+  --md-accent-fg-color: #f6e07c;
+
+  /* Adjust default text color for perfect contrast on the new dark background */
+  --md-default-fg-color: hsla(0, 0%, 100%, 0.87);
+  --md-default-fg-color--light: hsla(0, 0%, 100%, 0.7);
+  --md-default-fg-color--lighter: hsla(0, 0%, 100%, 0.5);
+
+  /* Ensure links in dark mode also use the vibrant accent color */
+  --md-typeset-link-color: #f6e07c;
+
+  /* Card specific colors for dark mode */
+  --md-card-bg-color: #2c2c2c; /* Uses the lighter default bg */
+  --md-card-border-color: #3a3a3a;
+}
+
+/* 4. CUSTOM OVERRIDES FOR A SLEEK & CLEAR UI */
+
+/* --- Navigation Highlight --- */
+/* Make the currently active page in the navigation much clearer */
+.md-nav__link--active {
+  font-weight: 600; /* Bolder font for the active link */
+  color: var(--md-accent-fg-color) !important; /* Use accent color for text */
+  background-color: rgba(0, 0, 0, 0.05); /* Subtle background highlight */
+  border-left: 3px solid var(--md-accent-fg-color); /* Accent bar */
+  padding-left: calc(
+    0.8rem - 3px
+  ); /* Adjust padding to account for the border */
+}
+
+/* Dark mode specific highlight for better contrast */
+[data-md-color-scheme="slate"] .md-nav__link--active {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* --- Modern Touches --- */
+/* Add subtle rounded corners to key elements */
+.md-code-content,
+.md-content .admonition, /* Apply to all admonitions including our new card */
+.md-tabs__item,
+.md-search__input {
+  border-radius: 4px;
+}
+
+/* Smoother transitions for a fluid feel */
+a,
+.md-nav__link,
+.md-tabs__link,
+.md-footer-nav__link {
+  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+/* --- Code Block Styling --- */
+/* Improve code block aesthetics */
+.md-typeset .highlight {
+  border-radius: 4px;
+  background-color: var(--md-code-bg-color);
+}
+
+/* Slightly different background for inline code to distinguish it */
+.md-typeset code {
+  background-color: rgba(100, 100, 100, 0.1);
+  border-radius: 3px;
+  padding: 0.2em 0.4em;
+}
+
+/* --- Card Admonition Styling --- */
+.md-content .admonition.card {
+  /* Use custom variables for background/border to ensure contrast */
+  background-color: var(--md-card-bg-color);
+  border: 1px solid var(--md-card-border-color);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
+  margin-bottom: 1.5em; /* Space between cards */
+  padding: 1.5em; /* Generous padding for content */
+}
+
+.md-content .admonition.card > .admonition-title {
+  /* Make the card title more prominent */
+  background-color: transparent; /* No background fill for title */
+  border-bottom: 1px solid var(--md-card-border-color); /* Separator line */
+  color: var(--md-accent-fg-color); /* Use accent color for title text */
+  font-weight: 600; /* Bolder title */
+  padding: 0 0 1em 0; /* Adjust padding for visual balance */
+  margin: -1em -1em 1em -1em; /* Pull into card padding, add space below */
+}
+
+/* Ensure icons are hidden for a cleaner card look */
+.md-content .admonition.card > .admonition-title::before {
+  display: none;
+}

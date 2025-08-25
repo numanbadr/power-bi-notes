@@ -1,3 +1,6 @@
+extra_css:
+  - overrides/custom.css
+
 site_name: PowerBI Notes # You can change this to anything you like
 site_url: https://numanbadr.github.io/power-bi-notes/ # IMPORTANT: Update this line!
 repo_url: https://github.com/numanbadr/power-bi-notes/
@@ -23,20 +26,21 @@ nav:
 
 theme:
   name: material
+  custom_dir: docs/overrides
   logo: assets/N_Logo.png
   favicon: assets/N_logo_icon.png
 
   font:
     text: Roboto
 
-  palette: 
+  palette:
       # Palette toggle for light mode
       - scheme: default
         primary: amber
         toggle:
             icon: material/weather-sunny
             name: Switch to dark mode
-    
+
     # Palette toggle for dark mode
 
       - scheme: slate
@@ -44,7 +48,7 @@ theme:
         toggle:
           icon: material/brightness-4
           name: Switch to light mode
-  
+
   features:
     - navigation.tabs
     - navigation.tabs.sticky
