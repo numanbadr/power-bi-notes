@@ -11,17 +11,21 @@ nav:
   - Home: 
     - PowerBI: index.md
     # - PL-300: intro/about-pl-300.md
-  - PowerBI:
+  - Class:
     # - Import Data: 
     #   - File Types: power-bi/import-data/file-types.md
     #   - Import Types: power-bi/import-data/import-types.md
     # - Transform Data: 
       # - Column: power-bi/transform-data/column-based.md
       # - Row: power-bi/transform-data/row-based.md
+    - Transformation:
+      - Parameter: power-bi/combine-data/parameter.md
     - Combine Data:
       - Append Queries: power-bi/combine-data/append.md
       - Merge Queries: power-bi/combine-data/merge.md
-
+    - Table Normalization:
+      - Normalization: power-bi/data-normalization/normalization.md
+      - Star Schema: power-bi/data-normalization/star-schema.md
 
 
 theme:
