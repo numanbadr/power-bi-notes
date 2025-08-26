@@ -1,4 +1,4 @@
-# Power Query Join (Merge) Operations 
+# Merge Queries
 
 
 ## The Sample Datasets

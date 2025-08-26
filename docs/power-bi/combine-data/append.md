@@ -1,4 +1,4 @@
-# Power Query Join (Merge) & Append Operations 
+# Append Queries
 
 ## The Sample Datasets
 
