@@ -4,7 +4,7 @@
 
 Imagine we are analyzing data for a company. We have three core tables: a sales fact table, an employee dimension table, and a product dimension table.
 
-### Table 1: `Fact_Sales` (24 rows)
+### Table 1: `Fact_Sales`
 
 This table contains raw sales transactions. It uses `EmployeeName` instead of an ID, which is a common real-world challenge. It also contains a sale for a `ProductSKU` that doesn't exist (`SKU-ERR-01`) and a sale by a temporary contractor ("Frank") who isn't in the employee directory.
 
@@ -39,14 +39,15 @@ This table contains raw sales transactions. It uses `EmployeeName` instead of an
 
 It's crucial to distinguish merging (joining) from appending (union).
 
--   **Merge (Join):** Adds **columns** from different tables based on a matching key. It makes a table **wider**.
--   **Append (Union):** Stacks rows from one table on top of another. It requires the tables to have similar column structures. It makes a table **taller**.
+- **Merge (Join):** Adds **columns** from different tables based on a matching key. It makes a table **wider**.
+- **Append (Union):** Stacks rows from one table on top of another. It requires the tables to have similar column structures. It makes a table **taller**.
 
 ### The Scenario: Combining Data from Multiple Sources
 
 A company's data is rarely in one place. You might have in-store sales from a point-of-sale system (`Fact_Sales`), online sales from a web database, and returns from a legacy system. To get a complete picture, you must combine them.
 
 #### New Table 1: `Online_Sales`
+
 Data from the e-commerce platform. It has a `CustomerID` but no `EmployeeName`.
 
 | SaleID  | SaleDate  | ProductSKU | CustomerID | UnitsSold | Revenue |
@@ -58,6 +59,7 @@ Data from the e-commerce platform. It has a `CustomerID` but no `EmployeeName`.
 | WEB-005 | 4/12/2025 | SKU-110    | CUST-129   | 1         | 95      |
 
 #### New Table 2: `Legacy_System_Returns`
+
 Data from an older system for product returns. Note the different column names and negative values.
 
 | ReturnID | TransactionDate | Product_Code | Quantity | Amount |
@@ -69,30 +71,35 @@ Data from an older system for product returns. Note the different column names a
 
 ### The Append Operation
 
--   **The Situation:** To get a complete picture of all sales and return activities, we need to combine `Fact_Sales`, `Online_Sales`, and `Legacy_System_Returns` into a single, unified table.
--   **The Challenge:** The tables have different column names (`ProductSKU` vs. `Product_Code`) and some tables have columns that others don't (`CustomerID`, `EmployeeName`).
--   **How to:**
-    1.  In the Power Query Editor, on the **Home** tab, click the dropdown for **Append Queries** and select **Append Queries as New**.
-    2.  In the dialog box, select **Three or more tables**.
-    3.  Add `Fact_Sales`, `Online_Sales`, and `Legacy_System_Returns` to the list of tables to append and click OK.
+- **The Situation:** To get a complete picture of all sales and return activities, we need to combine `Fact_Sales`, `Online_Sales`, and `Legacy_System_Returns` into a single, unified table.
+- **The Challenge:** The tables have different column names (`ProductSKU` vs. `Product_Code`) and some tables have columns that others don't (`CustomerID`, `EmployeeName`).
+- **How to:**
+    1. In the Power Query Editor, on the **Home** tab, click the dropdown for **Append Queries** and select **Append Queries as New**.
+    2. In the dialog box, select **Three or more tables**.
+    3. Add `Fact_Sales`, `Online_Sales`, and `Legacy_System_Returns` to the list of tables to append and click OK.
 
-#### Before Append Snippets:
+#### Before Append Snippets
+
 **`Fact_Sales`**
+
 | SaleID | ProductSKU | EmployeeName | UnitsSold |
 | :--- | :--- | :--- | :--- |
 | T1024 | SKU-104 | David Green | 1 |
 
 **`Online_Sales`**
+
 | SaleID | ProductSKU | CustomerID | UnitsSold |
 | :--- | :--- | :--- | :--- |
 | WEB-001 | SKU-101 | CUST-843 | 1 |
 
 **`Legacy_System_Returns`**
+
 | ReturnID | Product_Code | Quantity |
 | :--- | :--- | :--- |
 | RTN-501 | SKU-101 | -1 |
 
-#### After Append (Initial Result):
+#### After Append (Initial Result)
+
 Power Query stacks the tables and creates a complete set of columns. Where a table didn't have a certain column, the value is `null`. **Crucially, notice that because the column names were different (`ProductSKU` vs. `Product_Code`), Power Query created two separate columns.**
 
 | SaleID | ProductSKU | EmployeeName | UnitsSold | CustomerID | ReturnID | Product_Code | Quantity | Amount |
@@ -105,19 +112,21 @@ Power Query stacks the tables and creates a complete set of columns. Where a tab
 
 The job isn't finished. You must clean up the appended table to make it usable. The most important step is to combine the mismatched columns.
 
--   **The Goal:** Create a single, unified `ProductSKU` column from the `ProductSKU` and `Product_Code` columns.
--   **How to (Coalesce Pattern):**
-    1.  With the new appended query selected, go to the **Add Column** tab and click **Custom Column**.
-    2.  Name the new column `UnifiedSKU`.
-    3.  Enter the following formula. This says: if the `ProductSKU` column is not empty, use it; otherwise, use the value from the `Product_Code` column.
+- **The Goal:** Create a single, unified `ProductSKU` column from the `ProductSKU` and `Product_Code` columns.
+- **How to (Coalesce Pattern):**
+    1. With the new appended query selected, go to the **Add Column** tab and click **Custom Column**.
+    2. Name the new column `UnifiedSKU`.
+    3. Enter the following formula. This says: if the `ProductSKU` column is not empty, use it; otherwise, use the value from the `Product_Code` column.
+
         ```powerquery
         if [ProductSKU] <> null then [ProductSKU] else [Product_Code]
         ```
-    4.  Click OK. You will now have a new column that is correctly populated.
-    5.  You can now right-click and **Remove** the original `ProductSKU` and `Product_Code` columns.
-    6.  Repeat this process for other mismatched columns (e.g., `SaleID`/`ReturnID`, `UnitsSold`/`Quantity`, etc.).
 
-#### After Append (Final Cleaned-Up Result Snippet):
+    4. Click OK. You will now have a new column that is correctly populated.
+    5. You can now right-click and **Remove** the original `ProductSKU` and `Product_Code` columns.
+    6. Repeat this process for other mismatched columns (e.g., `SaleID`/`ReturnID`, `UnitsSold`/`Quantity`, etc.).
+
+#### After Append (Final Cleaned-Up Result Snippet)
 
 | TransactionID | TransactionDate | EmployeeName | UnifiedSKU | Units | Revenue | CustomerID |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |

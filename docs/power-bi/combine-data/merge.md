@@ -1,11 +1,10 @@
 # Merge Queries
 
-
 ## The Sample Datasets
 
 Imagine we are analyzing data for a company. We have three core tables: a sales fact table, an employee dimension table, and a product dimension table.
 
-### Table 1: `Fact_Sales` (24 rows)
+### Table 1: `Fact_Sales`
 
 This table contains raw sales transactions. It uses `EmployeeName` instead of an ID, which is a common real-world challenge. It also contains a sale for a `ProductSKU` that doesn't exist (`SKU-ERR-01`) and a sale by a temporary contractor ("Frank") who isn't in the employee directory.
 
@@ -36,7 +35,7 @@ This table contains raw sales transactions. It uses `EmployeeName` instead of an
 | T1023  | 4/8/2025  | SKU-109    | Carol White   | 3         | 75      |
 | T1024  | 4/10/2025 | SKU-104    | David Green   | 1         | 75      |
 
-### Table 2: `Dim_Employees` (10 rows)
+### Table 2: `Dim_Employees`
 
 The official HR directory. It has a `ManagerName` column for the self-join example. Note that "Grace Hopper" and "Henry Ford" have no sales in the `Fact_Sales` table.
 
@@ -53,7 +52,7 @@ The official HR directory. It has a `ManagerName` column for the self-join examp
 | E109       | Jane Austen   | Marketing  | 7/30/2023  | Grace Hopper |
 | E110       | Kevin Mitnick | IT         | 4/19/2024  | Isaac Newton |
 
-### Table 3: `Dim_Products` (12 rows)
+### Table 3: `Dim_Products`
 
 The official product catalog. Note that the 'Projector' and 'Docking Station' have never been sold.
 
@@ -80,19 +79,21 @@ For these examples, we will merge `Fact_Sales` (Left Table) with `Dim_Employees`
 
 ### 1. Left Outer Join
 
--   **The Situation:** You are building the main sales performance dashboard. You need to show **every single transaction** and enrich it with employee details like their department and hire date. If a sale was made by someone not in the HR system (like a temp), you still need to see the sale and identify the missing employee info.
--   **Why this Join?** It keeps all rows from your primary table (`Fact_Sales`) and adds matching information from the secondary table (`Dim_Employees`). This is the most common join for enriching a fact table with dimension attributes.
--   **How to:**
-    1.  Select the `Fact_Sales` query.
-    2.  On the **Home** tab, click **Merge Queries**.
-    3.  Select `Dim_Employees` as the second table.
-    4.  Click on the `EmployeeName` column in `Fact_Sales`, then the `FullName` column in `Dim_Employees`.
-    5.  For **Join Kind**, select **Left Outer**.
+- **The Situation:** You are building the main sales performance dashboard. You need to show **every single transaction** and enrich it with employee details like their department and hire date. If a sale was made by someone not in the HR system (like a temp), you still need to see the sale and identify the missing employee info.
+- **Why this Join?** It keeps all rows from your primary table (`Fact_Sales`) and adds matching information from the secondary table (`Dim_Employees`). This is the most common join for enriching a fact table with dimension attributes.
+- **How to:**
+    1. Select the `Fact_Sales` query.
+    2. On the **Home** tab, click **Merge Queries**.
+    3. Select `Dim_Employees` as the second table.
+    4. Click on the `EmployeeName` column in `Fact_Sales`, then the `FullName` column in `Dim_Employees`.
+    5. For **Join Kind**, select **Left Outer**.
 
-#### Before Merge Snippet:
+#### Before Merge Snippet
+
 `Fact_Sales` (Left) & `Dim_Employees` (Right)
 
-#### After Merge Snippet (and Expanding):
+#### After Merge Snippet (and Expanding)
+
 The sale by "Frank" is included, but his department and hire date are `null` because he's not in the `Dim_Employees` table.
 
 | SaleID | EmployeeName | Revenue | Dim_Employees.Department | Dim_Employees.HireDate |
@@ -107,14 +108,16 @@ The sale by "Frank" is included, but his department and hire date are `null` bec
 
 ### 2. Right Outer Join
 
--   **The Situation:** An HR manager wants a report of **all employees** and their total sales revenue to evaluate performance. It's critical to include employees who have made zero sales to identify non-sales staff or underperforming sales staff.
--   **Why this Join?** It keeps all rows from the "right" table (`Dim_Employees`) and brings in matching sales data from the "left" (`Fact_Sales`). Employees with no sales will have `null` values for the sales columns.
--   **How to:** Follow the steps above, but for **Join Kind**, select **Right Outer**.
+- **The Situation:** An HR manager wants a report of **all employees** and their total sales revenue to evaluate performance. It's critical to include employees who have made zero sales to identify non-sales staff or underperforming sales staff.
+- **Why this Join?** It keeps all rows from the "right" table (`Dim_Employees`) and brings in matching sales data from the "left" (`Fact_Sales`). Employees with no sales will have `null` values for the sales columns.
+- **How to:** Follow the steps above, but for **Join Kind**, select **Right Outer**.
 
-#### Before Merge Snippet:
+#### Before Merge Snippet
+
 `Fact_Sales` (Left) & `Dim_Employees` (Right)
 
-#### After Merge Snippet (and Expanding):
+#### After Merge Snippet (and Expanding)
+
 Employees like Grace, Henry, Isaac, Jane, and Kevin are listed, but their sales data is `null` as they have no records in `Fact_Sales`.
 
 | FullName | Department | SaleID | Revenue |
@@ -130,14 +133,16 @@ Employees like Grace, Henry, Isaac, Jane, and Kevin are listed, but their sales 
 
 ### 3. Full Outer Join
 
--   **The Situation:** You are conducting a full data reconciliation between the sales system and the HR system. You need a single view that shows **all sales and all employees**, highlighting all mismatches: sales by people not in HR, and employees who have never made a sale.
--   **Why this Join?** It combines both Left and Right Outer joins, keeping all rows from both tables and filling in `nulls` where matches don't exist on either side.
--   **How to:** Follow the steps above, but for **Join Kind**, select **Full Outer**.
+- **The Situation:** You are conducting a full data reconciliation between the sales system and the HR system. You need a single view that shows **all sales and all employees**, highlighting all mismatches: sales by people not in HR, and employees who have never made a sale.
+- **Why this Join?** It combines both Left and Right Outer joins, keeping all rows from both tables and filling in `nulls` where matches don't exist on either side.
+- **How to:** Follow the steps above, but for **Join Kind**, select **Full Outer**.
 
-#### Before Merge Snippet:
+#### Before Merge Snippet
+
 `Fact_Sales` (Left) & `Dim_Employees` (Right)
 
-#### After Merge Snippet (and Expanding):
+#### After Merge Snippet (and Expanding)
+
 This comprehensive view shows both the sale by "Frank" (with no employee details) and employees like "Grace Hopper" (with no sales details).
 
 | SaleID | EmployeeName | Revenue | FullName | Department |
@@ -154,14 +159,16 @@ This comprehensive view shows both the sale by "Frank" (with no employee details
 
 ### 4. Inner Join
 
--   **The Situation:** The finance department needs a report for calculating sales commissions. The report must **only include sales made by official, current employees** listed in the HR directory. Sales from temporary staff or data entry errors must be excluded.
--   **Why this Join?** It returns only the rows that have a matching key in **both** tables. It's the perfect way to create a "clean" dataset based on confirmed matches.
--   **How to:** Follow the steps above, but for **Join Kind**, select **Inner**.
+- **The Situation:** The finance department needs a report for calculating sales commissions. The report must **only include sales made by official, current employees** listed in the HR directory. Sales from temporary staff or data entry errors must be excluded.
+- **Why this Join?** It returns only the rows that have a matching key in **both** tables. It's the perfect way to create a "clean" dataset based on confirmed matches.
+- **How to:** Follow the steps above, but for **Join Kind**, select **Inner**.
 
-#### Before Merge Snippet:
+#### Before Merge Snippet
+
 `Fact_Sales` (Left) & `Dim_Employees` (Right)
 
-#### After Merge Snippet (and Expanding):
+#### After Merge Snippet (and Expanding)
+
 The sale by "Frank" is gone. The result is a clean intersection of the two datasets.
 
 | SaleID | EmployeeName | Revenue | Department | HireDate |
@@ -176,14 +183,16 @@ The sale by "Frank" is gone. The result is a clean intersection of the two datas
 
 ### 5. Left Anti Join
 
--   **The Situation:** The data quality team needs a report of all sales transactions where the `EmployeeName` does not match any `FullName` in the official `Dim_Employees` directory. This helps identify data entry errors or sales attributed to former/temporary staff.
--   **Why this Join?** It's a filtering join that returns only the rows from the left table (`Fact_Sales`) that **do not have a match** in the right table.
--   **How to:** Follow the steps above, but for **Join Kind**, select **Left Anti**.
+- **The Situation:** The data quality team needs a report of all sales transactions where the `EmployeeName` does not match any `FullName` in the official `Dim_Employees` directory. This helps identify data entry errors or sales attributed to former/temporary staff.
+- **Why this Join?** It's a filtering join that returns only the rows from the left table (`Fact_Sales`) that **do not have a match** in the right table.
+- **How to:** Follow the steps above, but for **Join Kind**, select **Left Anti**.
 
-#### Before Merge Snippet:
+#### Before Merge Snippet
+
 `Fact_Sales` (Left) & `Dim_Employees` (Right)
 
-#### After Merge:
+#### After Merge
+
 The result is a single row: the sale made by "Frank", who is not in the employee list.
 
 | SaleID | SaleDate | ProductSKU | EmployeeName | UnitsSold | Revenue |
@@ -194,14 +203,16 @@ The result is a single row: the sale made by "Frank", who is not in the employee
 
 ### 6. Right Anti Join
 
--   **The Situation:** A manager wants a list of all employees who have **zero sales** recorded in the `Fact_Sales` table. This could be used to confirm that non-sales staff are not making sales, or to identify sales staff who need training.
--   **Why this Join?** It's the inverse of Left Anti, returning only the rows from the right table (`Dim_Employees`) that **do not have a match** in the left table.
--   **How to:** Follow the steps above, but for **Join Kind**, select **Right Anti**.
+- **The Situation:** A manager wants a list of all employees who have **zero sales** recorded in the `Fact_Sales` table. This could be used to confirm that non-sales staff are not making sales, or to identify sales staff who need training.
+- **Why this Join?** It's the inverse of Left Anti, returning only the rows from the right table (`Dim_Employees`) that **do not have a match** in the left table.
+- **How to:** Follow the steps above, but for **Join Kind**, select **Right Anti**.
 
-#### Before Merge Snippet:
+#### Before Merge Snippet
+
 `Fact_Sales` (Left) & `Dim_Employees` (Right)
 
-#### After Merge:
+#### After Merge
+
 The result is a list of all employees who have never appeared in the sales data.
 
 | EmployeeID | FullName | Department | HireDate | ManagerName |
@@ -218,16 +229,16 @@ The result is a list of all employees who have never appeared in the sales data.
 
 ### Self Join
 
--   **The Situation:** You need to create an organizational chart report that shows each employee and their direct manager in the same row. The hierarchy information (`ManagerName`) is contained within the `Dim_Employees` table itself.
--   **Why this Join?** A Self Join merges a table with a copy of itself, allowing you to relate rows within the same table.
--   **How to:**
-    1.  In the Power Query Editor, right-click the `Dim_Employees` query and select **Duplicate**. Rename the new query `Managers`.
-    2.  Select the original `Dim_Employees` query.
-    3.  Click **Merge Queries**. Select `Managers` as the second table.
-    4.  Join `Dim_Employees` on `ManagerName` to `Managers` on `FullName`. Use a **Left Outer Join**.
-    5.  Expand the new column and select just the `EmployeeID` and `Department` of the manager. Rename them to `ManagerID` and `ManagerDepartment`.
+- **The Situation:** You need to create an organizational chart report that shows each employee and their direct manager in the same row. The hierarchy information (`ManagerName`) is contained within the `Dim_Employees` table itself.
+- **Why this Join?** A Self Join merges a table with a copy of itself, allowing you to relate rows within the same table.
+- **How to:**
+    1. In the Power Query Editor, right-click the `Dim_Employees` query and select **Duplicate**. Rename the new query `Managers`.
+    2. Select the original `Dim_Employees` query.
+    3. Click **Merge Queries**. Select `Managers` as the second table.
+    4. Join `Dim_Employees` on `ManagerName` to `Managers` on `FullName`. Use a **Left Outer Join**.
+    5. Expand the new column and select just the `EmployeeID` and `Department` of the manager. Rename them to `ManagerID` and `ManagerDepartment`.
 
-#### Before Merge Snippet (`Dim_Employees`):
+#### Before Merge Snippet (`Dim_Employees`)
 
 | EmployeeID | FullName | ManagerName |
 | :--- | :--- | :--- |
@@ -237,7 +248,7 @@ The result is a list of all employees who have never appeared in the sales data.
 | ... | ... | ... |
 | E110 | Kevin Mitnick | Isaac Newton |
 
-#### After Self Join:
+#### After Self Join
 
 | FullName | Department | ManagerName | ManagerID | ManagerDepartment |
 | :--- | :--- | :--- | :--- | :--- |
@@ -255,29 +266,33 @@ The result is a list of all employees who have never appeared in the sales data.
 
 It's crucial to distinguish merging (joining) from appending (union).
 
--   **Merge (Join):** Adds **columns** from different tables based on a matching key. It makes a table **wider**.
--   **Append (Union):** Stacks rows from one table on top of another. It requires the tables to have similar column structures. It makes a table **taller**.
+- **Merge (Join):** Adds **columns** from different tables based on a matching key. It makes a table **wider**.
+- **Append (Union):** Stacks rows from one table on top of another. It requires the tables to have similar column structures. It makes a table **taller**.
 
--   **The Situation:** The HR department has a separate list of new hires for the current quarter who are not yet in the main `Dim_Employees` directory. You need to create a single, master list of all employees—both current and new—for a company-wide email distribution.
--   **How to:**
-    1.  Ensure you have both tables (`Dim_Employees` and `HR_Onboarding`) loaded in Power Query.
-    2.  On the **Home** tab, click **Append Queries** (or its dropdown and choose **Append Queries as New**).
-    3.  Select the two tables to combine.
+- **The Situation:** The HR department has a separate list of new hires for the current quarter who are not yet in the main `Dim_Employees` directory. You need to create a single, master list of all employees—both current and new—for a company-wide email distribution.
+- **How to:**
+    1. Ensure you have both tables (`Dim_Employees` and `HR_Onboarding`) loaded in Power Query.
+    2. On the **Home** tab, click **Append Queries** (or its dropdown and choose **Append Queries as New**).
+    3. Select the two tables to combine.
 
-#### Before Append:
+#### Before Append
+
 **`Dim_Employees` (Snippet)**
+
 | EmployeeID | FullName | Department |
 | :--- | :--- | :--- |
 | E109 | Jane Austen | Marketing |
 | E110 | Kevin Mitnick | IT |
 
 **`HR_Onboarding` (New Table)**
+
 | FullName | Department | HireDate |
 | :--- | :--- | :--- |
 | Leo Tolstoy | Marketing | 8/1/2025 |
 | Marie Curie | R&D | 8/5/2025 |
 
-#### After Append:
+#### After Append
+
 The new hires are added to the bottom of the list. Power Query automatically handles the columns, placing `null` where data (like `EmployeeID`) doesn't exist in one of the tables.
 
 | EmployeeID | FullName | Department |
