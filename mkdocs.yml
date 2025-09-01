@@ -66,4 +66,24 @@ theme:
 
 plugins:
   - search
-    
+
+markdown_extensions:
+- pymdownx.superfences:
+    custom_fences:
+      - name: mermaid
+        class: mermaid
+        format: !!python/name:pymdownx.superfences.fence_code_format
+
+- pymdownx.highlight:
+    anchor_linenums: true
+    line_spans: __span
+    pygments_lang_class: true
+- pymdownx.inlinehilite
+- pymdownx.snippets
+- admonition # For callouts (info, warning, etc.)
+- pymdownx.details
+- pymdownx.superfences # Enhanced code blocks
+- attr_list # For adding attributes to markdown elements
+- md_in_html # Allows Markdown within HTML blocks
+- toc:
+    permalink: true # Adds a link icon next to headings

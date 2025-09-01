@@ -16,42 +16,40 @@ Once data is normalized, it's typically organized into a **dimensional model**, 
 
 * **Conceptual Diagram (Example):**
 
-    ```text
-                         +----------------+
-                         |  DimCustomer   |
-                         | CustomerID (PK)|
-                         | CustomerName   |
-                         | CustomerCity   |
-                         +----------------+
-                                 | 1
-                                 |
-           +---------------+     |     +--------------+
-           |   DimProduct  |     |     |   DimDate    |
-           | ProductID (PK)|-----|-----| DateID (PK)  |
-           | ProductName   |  N  |  N  | FullDate     |
-           | ProductCategory|     |     | Year, Month  |
-           +---------------+     |     +--------------+
-                                 |
-                                 | N
-                         +----------------+
-                         |   FactSales    |
-                         | OrderID        |
-                         | DateID (FK)    |
-                         | CustomerID (FK)|
-                         | ProductID (FK) |
-                         | Quantity       |
-                         | LineTotal      |
-                         +----------------+
-                                 | N
-                                 |
-                         +----------------+
-                         |  DimEmployee   |
-                         | EmployeeID (PK)|
-                         | EmployeeName   |
-                         | EmployeeRegion |
-                         +----------------+
-    ```
+```text
++----------------+
+|  DimCustomer   |
+| CustomerID (PK)|
+|  CustomerName  |
+|  CityID (FK)   | <-- Relates to DimCity
++----------------+
+        | 1
+        +------------------+
++----------------+
+|   FactSales    |  +----------------+
+|    OrderID     |  |    DimDate     |
+|   DateID (FK)  |----|  DateID (PK)   |
+| CustomerID (FK)| N  |   FullDate     |
+| ProductID (FK) |----|  Year, Month   |
+| EmployeeID (FK)| N  +----------------+
+|    Quantity    |
+|   LineTotal    |
++------------------+
+        | N
+        +----------------+
+        |  DimProduct    |
+        | ProductID (PK)|
+        |  ProductName   |
+        | CategoryID (FK)| <-- Relates to DimProductCategory
+        +----------------+
+                | N
+                +-------------------+
+                | DimProductCategory|
+                | CategoryID (PK)   |
+                | CategoryName      |
+                +-------------------+
 
+    
 * **Pros of Star Schema in Power BI:**
   * **Simplicity:** Easy to understand, design, and navigate for business users.
   * **Performance:** Power BI's VertiPaq engine is highly optimized for star schemas. Fewer joins are required to retrieve data, leading to faster query performance and report loading.
@@ -73,44 +71,44 @@ Once data is normalized, it's typically organized into a **dimensional model**, 
 
 * **Conceptual Diagram (Example):**
 
-    ```text
-                               +----------------+
-                               |  DimCustomer   |
-                               | CustomerID (PK)|
-                               | CustomerName   |
-                               | CityID (FK)    | <-- Relates to DimCity
-                               +----------------+
-                                      | 1
-                                      |
-                      +------------------+    +----------------+
-                      |   FactSales      |    |    DimDate     |
-                      | OrderID          |    |  DateID (PK)   |
-                      | DateID (FK)      |----|  FullDate      |
-                      | CustomerID (FK)  | N  |  Year, Month   |
-                      | ProductID (FK)   |----|                |
-                      | EmployeeID (FK)  | N  +----------------+
-                      | Quantity         |
-                      | LineTotal        |
-                      +------------------+
-                               | N
-                               |
-                      +----------------+
-                      |   DimProduct   |
-                      | ProductID (PK)|
-                      | ProductName    |
-                      | CategoryID (FK)| <-- Relates to DimProductCategory
-                      +----------------+
-                               | N
-                               |
-                   +-------------------+
-                   | DimProductCategory|
-                   | CategoryID (PK)   |
-                   | CategoryName      |
-                   +-------------------+
+```text
+                            +----------------+
+                            |  DimCustomer   |
+                            | CustomerID (PK)|
+                            | CustomerName   |
+                            | CityID (FK)    | <-- Relates to DimCity
+                            +----------------+
+                                  | 1
+                                  |
+                  +------------------+    +----------------+
+                  |   FactSales      |    |    DimDate     |
+                  | OrderID          |    |  DateID (PK)   |
+                  | DateID (FK)      |----|  FullDate      |
+                  | CustomerID (FK)  | N  |  Year, Month   |
+                  | ProductID (FK)   |----|                |
+                  | EmployeeID (FK)  | N  +----------------+
+                  | Quantity         |
+                  | LineTotal        |
+                  +------------------+
+                            | N
+                            |
+                  +----------------+
+                  |   DimProduct   |
+                  | ProductID (PK)|
+                  | ProductName    |
+                  | CategoryID (FK)| <-- Relates to DimProductCategory
+                  +----------------+
+                            | N
+                            |
+                +-------------------+
+                | DimProductCategory|
+                | CategoryID (PK)   |
+                | CategoryName      |
+                +-------------------+
 
-    ```
+```
 
-    *In this example, `DimCustomer` is normalized into `DimCity` (not shown but implied), and `DimProduct` is normalized into `DimProductCategory`.*
+  *In this example, `DimCustomer` is normalized into `DimCity` (not shown but implied), and `DimProduct` is normalized into `DimProductCategory`.*
 
 * **Pros of Snowflake Schema in Power BI:**
   * **Reduced Data Redundancy:** More highly normalized, storing descriptive attributes only once across the entire model.
