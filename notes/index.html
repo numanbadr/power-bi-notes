@@ -1,0 +1,4566 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://numanbadr.github.io/power-bi-notes/notes/">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/N_logo_icon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>Data Transformation in Power BI (PL-300) - PowerBI Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../overrides/custom.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="amber" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#data-transformation-in-power-bi-pl-300" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="PowerBI Notes" class="md-header__button md-logo" aria-label="PowerBI Notes" data-md-component="logo">
+      
+  <img src="../assets/N_Logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PowerBI Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Data Transformation in Power BI (PL-300)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="amber" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/numanbadr/power-bi-notes/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href=".." class="md-tabs__link">
+          
+  
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../power-bi/combine-data/parameter/" class="md-tabs__link">
+          
+  
+  
+  Class
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="PowerBI Notes" class="md-nav__button md-logo" aria-label="PowerBI Notes" data-md-component="logo">
+      
+  <img src="../assets/N_Logo.png" alt="logo">
+
+    </a>
+    PowerBI Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/numanbadr/power-bi-notes/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Home
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PowerBI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Class
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Class
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Transformation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Transformation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../power-bi/combine-data/parameter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Parameter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Combine Data
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Combine Data
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../power-bi/combine-data/append/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Append Queries
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../power-bi/combine-data/merge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Merge Queries
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Table Normalization
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Table Normalization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../power-bi/data-normalization/normalization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Normalization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../power-bi/data-normalization/star-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Star Schema
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction-to-data-transformation" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Introduction to Data Transformation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Introduction to Data Transformation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose-and-importance-of-data-transformation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Purpose and Importance of Data Transformation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overview-of-power-query-editor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview of Power Query Editor
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-connecting-to-data-sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Connecting to Data Sources
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Connecting to Data Sources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-data-source-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Data Source Types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#understanding-connection-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding Connection Modes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#introduction-to-query-folding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction to Query Folding
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-navigating-the-power-query-editor-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Navigating the Power Query Editor Interface
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Navigating the Power Query Editor Interface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#editor-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      Editor Layout
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#understanding-applied-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding Applied Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-m-language-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic M Language Concepts
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-basic-data-cleaning-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Basic Data Cleaning Operations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Basic Data Cleaning Operations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#choosing-and-removing-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Choosing and Removing Columns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filtering-rows" class="md-nav__link">
+    <span class="md-ellipsis">
+      Filtering Rows
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#removing-duplicates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Removing Duplicates
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handling-missing-values-nulls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Handling Missing Values (Nulls)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changing-data-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Changing Data Types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sorting-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sorting Data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-data-shaping-techniques" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Data Shaping Techniques
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Data Shaping Techniques">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#splitting-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Splitting Columns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#merging-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Merging Columns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transposing-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Transposing Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pivoting-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pivoting Columns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unpivoting-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Unpivoting Columns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filling-updown" class="md-nav__link">
+    <span class="md-ellipsis">
+      Filling Up/Down
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-adding-new-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Adding New Columns
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Adding New Columns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adding-custom-columns-using-m-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adding Custom Columns (using M language)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-conditional-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adding Conditional Columns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-index-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adding Index Columns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-column-from-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adding Column From Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-specific-transformation-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Specific Transformation Types
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Specific Transformation Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#text-transformations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Text Transformations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#number-transformations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Number Transformations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#date-time-transformations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Date &amp; Time Transformations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-combining-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Combining Queries
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Combining Queries">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#appending-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Appending Queries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#merging-queries-join-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Merging Queries (Join Operations)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-advanced-transformation-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Advanced Transformation Concepts
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Advanced Transformation Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-and-using-query-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating and Using Query Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-and-invoking-custom-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating and Invoking Custom Functions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#referencing-and-duplicating-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Referencing and Duplicating Queries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#organizing-queries-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      Organizing Queries (Groups)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-handling-in-power-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error Handling in Power Query
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-performance-considerations-and-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Performance Considerations and Best Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Performance Considerations and Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#optimizing-query-folding" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optimizing Query Folding
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disabling-query-load-and-refresh" class="md-nav__link">
+    <span class="md-ellipsis">
+      Disabling Query Load and Refresh
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-query-diagnostics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Query Diagnostics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation-and-readability-of-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation and Readability of Queries
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="data-transformation-in-power-bi-pl-300">Data Transformation in Power BI (PL-300)<a class="headerlink" href="#data-transformation-in-power-bi-pl-300" title="Permanent link">&para;</a></h1>
+<hr />
+<h2 id="1-introduction-to-data-transformation">1. Introduction to Data Transformation<a class="headerlink" href="#1-introduction-to-data-transformation" title="Permanent link">&para;</a></h2>
+<h3 id="purpose-and-importance-of-data-transformation">Purpose and Importance of Data Transformation<a class="headerlink" href="#purpose-and-importance-of-data-transformation" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Data transformation is the process of cleaning, shaping, and restructuring raw data into a format suitable for analysis and reporting in Power BI.</p>
+<p><strong>Use Cases</strong>
+- Raw sales data with inconsistent formatting needs standardization
+- Multiple data sources require uniform structure for integration
+- Text data contains unnecessary spaces and formatting issues
+- Date formats vary across different systems
+- Numerical data stored as text needs conversion</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Before</th>
+<th>After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Customer Names</td>
+<td>"  john SMITH  "</td>
+<td>"John Smith"</td>
+</tr>
+<tr>
+<td>Sales Amount</td>
+<td>"$1,250.00" (Text)</td>
+<td>1250 (Number)</td>
+</tr>
+<tr>
+<td>Order Date</td>
+<td>"2024-12-25" (Text)</td>
+<td>12/25/2024 (Date)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. Open Power BI Desktop
+2. Click "Get Data" → Select data source
+3. Click "Transform Data" to open Power Query Editor
+4. Apply necessary transformations in the editor
+5. Click "Close &amp; Apply" to load transformed data</p>
+<p><strong>Cautions/Pitfalls</strong>
+- Always preview data before applying transformations
+- Keep original data source intact
+- Document transformation steps for future reference
+- Test with sample data first</p>
+<p><strong>Pro Tips</strong>
+- Create a data profiling checklist before starting transformations: check for nulls, duplicates, data types, and outliers
+- Use "Column Profile" and "Column Quality" features in the View ribbon to quickly assess data health
+- Always work with a subset of data during development, then apply to full dataset
+- Keep a transformation log document outside of Power BI to track business decisions and rationale
+- Set up a staging area in your data model for raw data before transformation</p>
+<hr />
+<h3 id="overview-of-power-query-editor">Overview of Power Query Editor<a class="headerlink" href="#overview-of-power-query-editor" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Power Query Editor is the data transformation interface in Power BI where you clean, shape, and combine data before loading it into your data model.</p>
+<p><strong>Use Cases</strong>
+- Cleaning imported Excel files with formatting issues
+- Combining data from multiple CSV files
+- Restructuring database query results
+- Creating calculated columns based on existing data</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Purpose</th>
+<th>Example Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Applied Steps</td>
+<td>Track transformation history</td>
+<td>"Removed Columns", "Changed Type"</td>
+</tr>
+<tr>
+<td>Data Preview</td>
+<td>Show current data state</td>
+<td>Live preview of 200 rows</td>
+</tr>
+<tr>
+<td>Formula Bar</td>
+<td>Edit M language code</td>
+<td><code>= Table.RemoveColumns(Source,{"Column1"})</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. From Power BI, click "Transform Data"
+2. Familiarize with ribbon tabs: Home, Transform, Add Column, View
+3. Notice Applied Steps pane on the right
+4. Observe data preview in center panel
+5. Use Formula Bar for advanced editing</p>
+<p><strong>Cautions/Pitfalls</strong>
+- Changes are not applied until "Close &amp; Apply"
+- Deleting Applied Steps can break subsequent steps
+- Large datasets may slow down preview performance
+- Always validate data types after transformations</p>
+<p><strong>Pro Tips</strong>
+- Use Ctrl+Z to quickly undo mistakes instead of deleting Applied Steps
+- Pin frequently used queries by right-clicking and selecting "Enable Load" to keep them easily accessible
+- Use View → "Go To Column" to quickly navigate to specific columns in wide datasets
+- Right-click column headers to see contextual transformation options specific to that data type
+- Use the status bar at the bottom to monitor row and column counts as you transform data
+- Enable "Show whitespace" in View options to visualize spaces and tabs in text data</p>
+<hr />
+<h2 id="2-connecting-to-data-sources">2. Connecting to Data Sources<a class="headerlink" href="#2-connecting-to-data-sources" title="Permanent link">&para;</a></h2>
+<h3 id="common-data-source-types">Common Data Source Types<a class="headerlink" href="#common-data-source-types" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Data sources are the origins of data that Power BI can connect to, including files, databases, web services, and cloud platforms.</p>
+<p><strong>Use Cases</strong>
+- Excel files from finance department
+- SQL Server database for sales transactions
+- SharePoint lists for project tracking
+- Web APIs for real-time data feeds
+- Azure SQL Database for cloud data</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Source Type</th>
+<th>Connection Method</th>
+<th>Data Access</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Excel File</td>
+<td>File → Excel Workbook</td>
+<td>Import sheets and tables</td>
+</tr>
+<tr>
+<td>SQL Server</td>
+<td>Database → SQL Server</td>
+<td>Query tables and views</td>
+</tr>
+<tr>
+<td>Web API</td>
+<td>Web → From Web</td>
+<td>JSON/XML data consumption</td>
+</tr>
+<tr>
+<td>SharePoint</td>
+<td>Online Services → SharePoint</td>
+<td>Lists and document libraries</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. Click "Get Data" in Power BI Desktop
+2. Browse or search for desired connector
+3. Enter connection details (server, file path, credentials)
+4. Select specific tables/sheets to import
+5. Choose connection mode (Import/DirectQuery)
+6. Preview and transform data as needed</p>
+<p><strong>Cautions/Pitfalls</strong>
+- Verify permissions before connecting
+- Consider data refresh requirements
+- Check for connection dependencies
+- Validate data source stability</p>
+<p><strong>Pro Tips</strong>
+- Use "Recent Sources" to quickly reconnect to frequently used data sources
+- Save connection strings as parameters for easy environment switching (Dev/Test/Prod)
+- Test connections with a small subset of data first to validate structure
+- Use folder connections for processing multiple files with identical structure
+- Create a data source inventory document with connection details and refresh schedules
+- For web sources, use browser developer tools (F12) to inspect API calls and understand data structure</p>
+<hr />
+<h3 id="understanding-connection-modes">Understanding Connection Modes<a class="headerlink" href="#understanding-connection-modes" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Connection modes determine how Power BI accesses and stores data: Import mode loads data into memory, while DirectQuery queries data source directly.</p>
+<p><strong>Use Cases</strong>
+- <strong>Import</strong>: Small to medium datasets, historical reporting, offline access needed
+- <strong>DirectQuery</strong>: Large datasets, real-time requirements, data governance restrictions
+- <strong>Composite</strong>: Mix of imported and DirectQuery sources</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Data Size</th>
+<th>Performance</th>
+<th>Real-time</th>
+<th>Storage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Import</td>
+<td>&lt; 1GB recommended</td>
+<td>Fast queries</td>
+<td>No</td>
+<td>Local cache</td>
+</tr>
+<tr>
+<td>DirectQuery</td>
+<td>Any size</td>
+<td>Depends on source</td>
+<td>Yes</td>
+<td>No local storage</td>
+</tr>
+<tr>
+<td>Composite</td>
+<td>Mixed</td>
+<td>Balanced</td>
+<td>Partial</td>
+<td>Hybrid approach</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. During data source connection, select connection mode
+2. For Import: Data loads during refresh
+3. For DirectQuery: Configure query optimization
+4. Monitor performance and adjust as needed
+5. Set appropriate refresh schedules</p>
+<p><strong>Cautions/Pitfalls</strong>
+- Import mode requires regular refreshes
+- DirectQuery performance depends on source system
+- Not all transformations work with DirectQuery
+- Consider licensing implications</p>
+<p><strong>Pro Tips</strong>
+- Use DirectQuery for frequently changing transaction data and Import for slowly changing dimensions
+- Monitor DirectQuery performance with SQL Profiler or database monitoring tools
+- Create aggregated tables in DirectQuery scenarios to improve performance
+- Consider using Power BI Premium's incremental refresh for large imported datasets
+- Test report performance with realistic user concurrency before deploying DirectQuery solutions
+- Use Composite mode strategically: Import small lookup tables, DirectQuery large fact tables</p>
+<hr />
+<h3 id="introduction-to-query-folding">Introduction to Query Folding<a class="headerlink" href="#introduction-to-query-folding" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Query folding is Power Query's ability to push transformation logic back to the data source, improving performance by processing data at the source rather than in Power BI.</p>
+<p><strong>Use Cases</strong>
+- Filtering large SQL Server tables
+- Aggregating data at the database level
+- Joining tables within the same database
+- Converting data types using database functions</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Transformation</th>
+<th>Foldable</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Filter Rows</td>
+<td>Yes</td>
+<td>WHERE clause in SQL</td>
+</tr>
+<tr>
+<td>Remove Columns</td>
+<td>Yes</td>
+<td>SELECT specific columns</td>
+</tr>
+<tr>
+<td>Custom Functions</td>
+<td>No</td>
+<td>Processed in Power Query</td>
+</tr>
+<tr>
+<td>Complex Text Operations</td>
+<td>No</td>
+<td>May break folding</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. Right-click on Applied Steps
+2. Look for "View Native Query" option
+3. If available, folding is occurring
+4. Optimize transformations to maintain folding
+5. Use Query Diagnostics to monitor</p>
+<p><strong>Cautions/Pitfalls</strong>
+- Not all data sources support folding
+- Complex transformations may break folding
+- Custom functions typically prevent folding
+- Monitor performance impact when folding breaks</p>
+<p><strong>Pro Tips</strong>
+- Place transformations that break folding (like custom functions) as late as possible in the transformation sequence
+- Use database-specific functions when available (e.g., SQL Server's DATEPART) instead of Power Query equivalents
+- Create views or stored procedures in your database for complex logic that doesn't fold well
+- Test folding by checking the "View Native Query" option after each transformation step
+- Keep a "folding-friendly" transformation library for common operations
+- Use SQL Profiler to see exactly what queries are being sent to your database</p>
+<hr />
+<h2 id="3-navigating-the-power-query-editor-interface">3. Navigating the Power Query Editor Interface<a class="headerlink" href="#3-navigating-the-power-query-editor-interface" title="Permanent link">&para;</a></h2>
+<h3 id="editor-layout">Editor Layout<a class="headerlink" href="#editor-layout" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+The Power Query Editor interface consists of multiple panes and components that allow you to transform data: Ribbon, Query Pane, Data View, Applied Steps, and Formula Bar.</p>
+<p><strong>Use Cases</strong>
+- Navigate between multiple queries efficiently
+- Track transformation history with Applied Steps
+- Edit advanced transformations using Formula Bar
+- Preview data changes in real-time
+- Access transformation functions through Ribbon</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Location</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ribbon</td>
+<td>Top</td>
+<td>Access to transformation commands</td>
+</tr>
+<tr>
+<td>Queries Pane</td>
+<td>Left</td>
+<td>List of all queries and data sources</td>
+</tr>
+<tr>
+<td>Data Preview</td>
+<td>Center</td>
+<td>Shows current state of selected query</td>
+</tr>
+<tr>
+<td>Applied Steps</td>
+<td>Right</td>
+<td>History of transformations applied</td>
+</tr>
+<tr>
+<td>Formula Bar</td>
+<td>Below Ribbon</td>
+<td>M code for current step</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. Open Power Query Editor from "Transform Data"
+2. Identify the five main interface components
+3. Select different queries in Queries Pane
+4. Click on different Applied Steps to see changes
+5. Use Formula Bar to view/edit M code
+6. Explore Ribbon tabs for available functions</p>
+<p><strong>Cautions/Pitfalls</strong>
+- Don't modify M code without understanding syntax
+- Applied Steps are interdependent - deleting early steps may break later ones
+- Large datasets may cause slow preview performance
+- Some operations may not show immediate preview</p>
+<p><strong>Pro Tips</strong>
+- Use Ctrl+1, Ctrl+2, Ctrl+3 to quickly switch between ribbon tabs
+- Double-click the border between panes to auto-resize for optimal viewing
+- Use Ctrl+G to quickly navigate to a specific row number in large datasets
+- Right-click in empty space of the Queries pane to access global options
+- Use F2 to quickly rename queries without right-clicking
+- Dock the Power Query Editor window to a second monitor for better workspace management</p>
+<hr />
+<h3 id="understanding-applied-steps">Understanding Applied Steps<a class="headerlink" href="#understanding-applied-steps" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Applied Steps is a sequential list of transformations performed on a query, allowing you to track, modify, or delete individual transformation steps.</p>
+<p><strong>Use Cases</strong>
+- Troubleshoot data transformation issues
+- Modify previous transformations without starting over
+- Document the transformation process
+- Revert changes by deleting steps
+- Understand the order of operations</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Step Name</th>
+<th>Action</th>
+<th>M Code Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source</td>
+<td>Connect to data</td>
+<td><code>Excel.Workbook(File.Contents("C:\data.xlsx"))</code></td>
+</tr>
+<tr>
+<td>Navigation</td>
+<td>Select worksheet</td>
+<td><code>Source{[Item="Sheet1"]}[Data]</code></td>
+</tr>
+<tr>
+<td>Promoted Headers</td>
+<td>First row as headers</td>
+<td><code>Table.PromoteHeaders(Navigation)</code></td>
+</tr>
+<tr>
+<td>Changed Type</td>
+<td>Set column data types</td>
+<td><code>Table.TransformColumnTypes(#"Promoted Headers",{{"Date", type date}})</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. In Power Query Editor, locate Applied Steps pane
+2. Click on any step to see data state at that point
+3. Right-click on step for options (Delete, Rename, Edit)
+4. Use gear icon next to step for settings
+5. Add new steps using Ribbon commands
+6. Reorder steps by careful deletion and recreation</p>
+<p><strong>Cautions/Pitfalls</strong>
+- Deleting early steps may break dependent steps
+- Renaming steps doesn't change references in M code
+- Complex steps may not show settings gear icon
+- Order matters - some transformations must occur before others</p>
+<p><strong>Pro Tips</strong>
+- Insert comments in M code using /<em> comment </em>/ to document complex business logic
+- Use descriptive names for steps that reflect business meaning, not technical action
+- Create "checkpoint" steps by adding custom columns with row counts to validate data at key points
+- Use the step settings gear icon whenever available - it's easier than editing M code
+- Copy step M code to notepad before making changes as a quick backup
+- Group related steps by using consistent naming conventions (e.g., "Clean_", "Transform_", "Enrich_")</p>
+<hr />
+<h3 id="basic-m-language-concepts">Basic M Language Concepts<a class="headerlink" href="#basic-m-language-concepts" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+M is the functional programming language used by Power Query to define data transformation operations, visible and editable in the Formula Bar.</p>
+<p><strong>Use Cases</strong>
+- Create custom transformations not available in UI
+- Fix broken step references
+- Optimize query performance
+- Create reusable custom functions
+- Understand and modify existing transformations</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>UI Method</th>
+<th>M Language</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Remove Column</td>
+<td>Right-click → Remove</td>
+<td><code>Table.RemoveColumns(PreviousStep, {"ColumnName"})</code></td>
+</tr>
+<tr>
+<td>Filter Rows</td>
+<td>Column filter</td>
+<td><code>Table.SelectRows(PreviousStep, each [Column] = "Value")</code></td>
+</tr>
+<tr>
+<td>Add Custom Column</td>
+<td>Add Column → Custom</td>
+<td><code>Table.AddColumn(PreviousStep, "NewColumn", each [A] + [B])</code></td>
+</tr>
+<tr>
+<td>Change Data Type</td>
+<td>Transform → Data Type</td>
+<td><code>Table.TransformColumnTypes(PreviousStep, {{"Column", type text}})</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. Click on any Applied Step
+2. Observe M code in Formula Bar
+3. Try simple edits like changing column names
+4. Use intellisense for function suggestions
+5. Test changes and observe results
+6. Practice with basic functions before complex operations</p>
+<p><strong>Cautions/Pitfalls</strong>
+- Syntax errors will break the query
+- Function names and syntax are case-sensitive
+- Always test modifications with sample data
+- Keep backups of working queries
+- Reference correct step names in formulas</p>
+<p><strong>Pro Tips</strong>
+- Use #"Step Name" syntax when step names contain spaces or special characters
+- Learn the "each" keyword - it's shorthand for creating a function that operates on each row
+- Use let...in statements to break complex operations into readable chunks
+- Bookmark the official M function reference documentation for quick syntax lookup
+- Use try...otherwise for error handling in M expressions
+- Comment your M code with // for single lines or /<em> </em>/ for blocks</p>
+<hr />
+<h2 id="4-basic-data-cleaning-operations">4. Basic Data Cleaning Operations<a class="headerlink" href="#4-basic-data-cleaning-operations" title="Permanent link">&para;</a></h2>
+<h3 id="choosing-and-removing-columns">Choosing and Removing Columns<a class="headerlink" href="#choosing-and-removing-columns" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Column selection involves keeping only necessary columns and removing unwanted ones to optimize performance and simplify the data model.</p>
+<p><strong>Use Cases</strong>
+- Remove personal identifiable information (PII)
+- Eliminate empty or irrelevant columns
+- Reduce data model size for better performance
+- Focus analysis on specific business metrics
+- Clean imported data with unnecessary formatting columns</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Before Columns</th>
+<th>After Columns</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Customer Data</td>
+<td>CustomerID, FirstName, LastName, SSN, Phone, Email</td>
+<td>CustomerID, FirstName, LastName, Phone, Email</td>
+<td>Remove PII (SSN)</td>
+</tr>
+<tr>
+<td>Sales Data</td>
+<td>OrderID, Date, Product, Price, Tax, Column1, Column2</td>
+<td>OrderID, Date, Product, Price, Tax</td>
+<td>Remove empty Excel columns</td>
+</tr>
+<tr>
+<td>Employee Data</td>
+<td>EmpID, Name, Dept, Salary, Notes, TempCol</td>
+<td>EmpID, Name, Dept, Salary</td>
+<td>Remove unnecessary columns</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. In Power Query Editor, select columns to remove
+2. Right-click → "Remove Columns" OR
+3. Use Home tab → "Remove Columns" → "Remove Columns"
+4. Alternatively: Select columns to keep → "Remove Other Columns"
+5. Use "Choose Columns" for selective column picker
+6. Verify remaining columns meet requirements</p>
+<p><strong>Cautions/Pitfalls</strong>
+- Don't remove columns that might be needed later in transformations
+- Consider downstream report requirements
+- Removing columns early can improve query performance
+- Can't undo after closing Power Query Editor
+- Some columns may be needed for relationships</p>
+<p><strong>Pro Tips</strong>
+- Use "Choose Columns" instead of manually removing many columns - it's faster and clearer
+- Remove columns as early as possible to improve query folding and performance
+- Create a "column map" document for complex datasets to track which source columns map to which business concepts
+- Use Shift+Click to select ranges of columns for bulk removal
+- Check column quality and distribution before removing - sometimes "empty" columns have hidden data
+- Keep audit columns (like created_date, modified_by) even if not used in reports - they're helpful for troubleshooting</p>
+<hr />
+<h3 id="filtering-rows">Filtering Rows<a class="headerlink" href="#filtering-rows" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Row filtering removes unwanted records from the dataset based on specific criteria, keeping only data relevant to analysis requirements.</p>
+<p><strong>Use Cases</strong>
+- Remove test records or invalid transactions
+- Filter by date ranges (current year, last quarter)
+- Exclude cancelled or returned orders
+- Keep only active customers or employees
+- Remove rows with missing critical information</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Filter Criteria</th>
+<th>Before (Rows)</th>
+<th>After (Rows)</th>
+<th>Business Logic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OrderStatus ≠ "Cancelled"</td>
+<td>1000 orders (including 50 cancelled)</td>
+<td>950 valid orders</td>
+<td>Exclude cancelled transactions</td>
+</tr>
+<tr>
+<td>OrderDate &gt;= 2024-01-01</td>
+<td>5000 historical orders</td>
+<td>800 current year orders</td>
+<td>Focus on current year analysis</td>
+</tr>
+<tr>
+<td>CustomerType = "Premium"</td>
+<td>10000 all customers</td>
+<td>500 premium customers</td>
+<td>Premium customer analysis</td>
+</tr>
+<tr>
+<td>Quantity &gt; 0</td>
+<td>1200 orders (including returns)</td>
+<td>1150 positive quantities</td>
+<td>Exclude return transactions</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. Click dropdown arrow on column header
+2. Uncheck items to exclude OR use search box
+3. For advanced filters: Click "Text Filters" or "Number Filters"
+4. Select condition (equals, contains, greater than, etc.)
+5. Enter filter values
+6. Apply multiple filters by repeating on different columns
+7. Use "Remove Rows" → "Remove Top/Bottom Rows" for position-based filtering</p>
+<p><strong>Cautions/Pitfalls</strong>
+- Filtering reduces data for analysis - ensure it's intentional
+- Date filters may exclude recent data if not set properly
+- Text filters are case-sensitive by default
+- Multiple filters create AND conditions
+- Consider impact on aggregations and calculations</p>
+<p><strong>Pro Tips</strong>
+- Apply filters as early as possible in your transformation sequence for better performance
+- Use parameters for dynamic filters (like date ranges) that change regularly
+- Document filter logic in step names or comments for business user understanding
+- Use "Keep Rows" operations for positive logic instead of "Remove Rows" when it makes business sense clearer
+- Check for null values before filtering - they might disappear unexpectedly
+- Use wildcard characters (* and ?) in text filters for pattern matching
+- Combine multiple filter conditions in a single step using "Advanced Editor" for complex AND/OR logic</p>
+<hr />
+<h3 id="removing-duplicates">Removing Duplicates<a class="headerlink" href="#removing-duplicates" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Duplicate removal identifies and eliminates rows with identical values across selected columns, ensuring data uniqueness.</p>
+<p><strong>Use Cases</strong>
+- Clean customer lists with multiple entries
+- Remove duplicate product records
+- Eliminate repeated transaction entries
+- Clean email lists for marketing campaigns
+- Ensure unique employee records</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Before Data</th>
+<th>After Data</th>
+<th>Duplicate Criteria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Customer List</td>
+<td>John Smith, john.smith@email.com<br>John Smith, john.smith@email.com<br>Jane Doe, jane@email.com</td>
+<td>John Smith, john.smith@email.com<br>Jane Doe, jane@email.com</td>
+<td>Full row match</td>
+</tr>
+<tr>
+<td>Product Catalog</td>
+<td>ProductID: 101, Name: Widget<br>ProductID: 101, Name: Widget<br>ProductID: 102, Name: Gadget</td>
+<td>ProductID: 101, Name: Widget<br>ProductID: 102, Name: Gadget</td>
+<td>ProductID column</td>
+</tr>
+<tr>
+<td>Sales Transactions</td>
+<td>Order: 1001, Date: 2024-01-15, Amount: $100<br>Order: 1001, Date: 2024-01-15, Amount: $100</td>
+<td>Order: 1001, Date: 2024-01-15, Amount: $100</td>
+<td>Order number basis</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. Select columns that define uniqueness (or select all for full row duplicates)
+2. Go to Home tab → "Remove Rows" → "Remove Duplicates"
+3. Power Query keeps the first occurrence of each duplicate set
+4. For column-specific duplicates:
+   - Select specific columns first
+   - Then apply Remove Duplicates
+5. Review results to ensure correct records were kept</p>
+<p><strong>Cautions/Pitfalls</strong>
+- Always verify which record is kept when duplicates are removed
+- Consider if all columns should be used for duplicate detection
+- Duplicates based on key columns might have different detail information
+- May need to aggregate data instead of removing duplicates
+- Test with sample data to understand behavior</p>
+<p><strong>Pro Tips</strong>
+- Use "Group By" with "All Rows" aggregation to see duplicate groups before removing them
+- Add an index column before duplicate removal to track which occurrence was kept
+- Consider using "Keep Last" logic by sorting before duplicate removal
+- Create a separate query to analyze duplicates before removing them
+- For complex duplicate rules, use custom M code with Table.Distinct and custom comparison logic
+- Document your duplicate removal strategy - business users often ask "which record was kept?"</p>
+<hr />
+<h3 id="handling-missing-values-nulls">Handling Missing Values (Nulls)<a class="headerlink" href="#handling-missing-values-nulls" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Managing null values involves identifying, replacing, or removing empty cells to ensure data quality and prevent analysis errors.</p>
+<p><strong>Use Cases</strong>
+- Replace null sales amounts with zero
+- Remove rows with missing critical identifiers
+- Fill missing dates with default values
+- Handle incomplete survey responses
+- Clean imported data with empty cells</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>Before</th>
+<th>After</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Replace with Value</td>
+<td>CustomerName: [null]<br>OrderAmount: [null]</td>
+<td>CustomerName: "Unknown"<br>OrderAmount: 0</td>
+<td>Default values for analysis</td>
+</tr>
+<tr>
+<td>Remove Rows</td>
+<td>CustomerID: 123<br>CustomerID: [null]<br>CustomerID: 456</td>
+<td>CustomerID: 123<br>CustomerID: 456</td>
+<td>Critical field cannot be null</td>
+</tr>
+<tr>
+<td>Fill Down</td>
+<td>Date: 2024-01-01<br>Date: [null]<br>Date: [null]<br>Date: 2024-01-02</td>
+<td>Date: 2024-01-01<br>Date: 2024-01-01<br>Date: 2024-01-01<br>Date: 2024-01-02</td>
+<td>Grouped data with repeated values</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. <strong>Replace Values Method:</strong>
+   - Select column with nulls
+   - Home tab → "Replace Values"
+   - Leave "Value to Find" empty (for nulls)
+   - Enter replacement value</p>
+<ol>
+<li><strong>Remove Rows Method:</strong></li>
+<li>Select column</li>
+<li>
+<p>Click dropdown → uncheck "(null)"</p>
+</li>
+<li>
+<p><strong>Fill Down Method:</strong></p>
+</li>
+<li>Select column</li>
+<li>Transform tab → "Fill" → "Down"</li>
+</ol>
+<p><strong>Cautions/Pitfalls</strong>
+- Consider business meaning before replacing nulls
+- Zero and null have different meanings in calculations
+- Fill Down only works if there's a pattern
+- Removing null rows may eliminate important records
+- Document null handling decisions for stakeholders</p>
+<p><strong>Pro Tips</strong>
+- Use Column Quality feature to quickly see null percentages across all columns
+- Create a "null handling strategy" document for your organization's standards
+- Consider using conditional columns for complex null replacement logic
+- Use Table.ReplaceErrorValues for handling errors vs. nulls differently
+- Test null handling logic with edge cases (all nulls, mixed nulls and blanks)
+- Use "Keep/Remove Empty Rows" for better performance when dealing with entirely empty rows
+- Replace nulls with meaningful business values, not just technical defaults</p>
+<hr />
+<h3 id="changing-data-types">Changing Data Types<a class="headerlink" href="#changing-data-types" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Data type conversion ensures columns have appropriate data types (text, number, date, boolean) for calculations, filtering, and visualization.</p>
+<p><strong>Use Cases</strong>
+- Convert text numbers to numeric for calculations
+- Change text dates to proper date format
+- Convert boolean text ("True"/"False") to boolean type
+- Fix imported data with incorrect auto-detected types
+- Ensure proper sorting and filtering behavior</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Before Type</th>
+<th>Before Value</th>
+<th>After Type</th>
+<th>After Value</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OrderDate</td>
+<td>Text</td>
+<td>"2024-01-15"</td>
+<td>Date</td>
+<td>1/15/2024</td>
+<td>Enable date calculations</td>
+</tr>
+<tr>
+<td>SalesAmount</td>
+<td>Text</td>
+<td>"$1,234.56"</td>
+<td>Number</td>
+<td>1234.56</td>
+<td>Enable mathematical operations</td>
+</tr>
+<tr>
+<td>IsActive</td>
+<td>Text</td>
+<td>"True"</td>
+<td>Boolean</td>
+<td>True</td>
+<td>Proper true/false logic</td>
+</tr>
+<tr>
+<td>ProductCode</td>
+<td>Number</td>
+<td>12345</td>
+<td>Text</td>
+<td>"12345"</td>
+<td>Prevent mathematical operations</td>
+</tr>
+<tr>
+<td>CustomerAge</td>
+<td>Text</td>
+<td>"25"</td>
+<td>Number</td>
+<td>25</td>
+<td>Enable age-based calculations</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. <strong>Using Column Header:</strong>
+   - Click data type icon next to column name
+   - Select appropriate data type from dropdown</p>
+<ol>
+<li><strong>Using Transform Tab:</strong></li>
+<li>Select column(s)</li>
+<li>
+<p>Transform tab → "Data Type" → Choose type</p>
+</li>
+<li>
+<p><strong>Using Detect Data Type:</strong></p>
+</li>
+<li>
+<p>Transform tab → "Detect Data Type" (auto-detect all columns)</p>
+</li>
+<li>
+<p><strong>Handle Conversion Errors:</strong></p>
+</li>
+<li>Right-click column → "Change Type" → "Using Locale" for regional formats</li>
+</ol>
+<p><strong>Cautions/Pitfalls</strong>
+- Data type changes may cause conversion errors
+- Regional settings affect date and number parsing
+- Some text values may not convert properly
+- Always validate data after type changes
+- Currency symbols need removal before converting to numbers
+- Consider locale-specific formatting (US vs European dates)</p>
+<p><strong>Pro Tips</strong>
+- Always use "Using Locale" for date and number conversions when dealing with international data
+- Set data types as early as possible to catch conversion errors quickly
+- Use "Detect Data Type" cautiously - review all changes before applying
+- Create custom functions for common data type conversions with error handling
+- Use Column Profile to identify problematic values before type conversion
+- Keep a data type reference chart for your organization's standards
+- Use try...otherwise in custom columns to handle conversion errors gracefully</p>
+<hr />
+<h3 id="sorting-data">Sorting Data<a class="headerlink" href="#sorting-data" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Sorting arranges data rows in ascending or descending order based on one or more columns, improving data readability and analysis.</p>
+<p><strong>Use Cases</strong>
+- Arrange sales data by date for trend analysis
+- Sort customers alphabetically for easier lookup
+- Order products by price for comparison
+- Arrange employees by hire date
+- Sort survey responses by rating</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Sort Criteria</th>
+<th>Before (Sample Rows)</th>
+<th>After (Sample Rows)</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OrderDate (Ascending)</td>
+<td>2024-03-15, 2024-01-10, 2024-02-20</td>
+<td>2024-01-10, 2024-02-20, 2024-03-15</td>
+<td>Chronological analysis</td>
+</tr>
+<tr>
+<td>SalesAmount (Descending)</td>
+<td>$100, $500, $250</td>
+<td>$500, $250, $100</td>
+<td>Identify top performers</td>
+</tr>
+<tr>
+<td>CustomerName (Ascending)</td>
+<td>Smith, Adams, Jones</td>
+<td>Adams, Jones, Smith</td>
+<td>Alphabetical lookup</td>
+</tr>
+<tr>
+<td>Multiple: Region (Asc), Sales (Desc)</td>
+<td>East-$100, West-$300, East-$200</td>
+<td>East-$200, East-$100, West-$300</td>
+<td>Regional performance analysis</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. <strong>Single Column Sort:</strong>
+   - Click column header dropdown
+   - Choose "Sort Ascending" or "Sort Descending"</p>
+<ol>
+<li><strong>Multiple Column Sort:</strong></li>
+<li>Home tab → "Sort Rows"</li>
+<li>Add columns and specify sort direction</li>
+<li>
+<p>Order of columns determines sort priority</p>
+</li>
+<li>
+<p><strong>Remove Sort:</strong></p>
+</li>
+<li>Home tab → "Sort Rows" → Remove sort criteria</li>
+</ol>
+<p><strong>Cautions/Pitfalls</strong>
+- Sorting doesn't persist in final data model (sort in visuals instead)
+- Multiple column sorts: first column has highest priority
+- Text sorting is case-sensitive
+- Date columns must be proper date type for chronological sorting
+- Null values typically appear first or last depending on sort direction
+- Consider performance impact on large datasets</p>
+<p><strong>Pro Tips</strong>
+- Remember that sorting in Power Query doesn't affect the final report - sort in visuals instead
+- Use sorting during development to quickly identify data quality issues (outliers appear at top/bottom)
+- Sort before removing duplicates to control which record is kept
+- Use multiple column sorting to create logical groupings for easier data review
+- Apply temporary sorting to validate transformations, then remove to improve performance
+- Sort by unique identifier columns to create reproducible query results for testing</p>
+<hr />
+<h2 id="5-data-shaping-techniques">5. Data Shaping Techniques<a class="headerlink" href="#5-data-shaping-techniques" title="Permanent link">&para;</a></h2>
+<h3 id="splitting-columns">Splitting Columns<a class="headerlink" href="#splitting-columns" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Column splitting divides a single column into multiple columns based on delimiters, character positions, or patterns to separate combined data elements.</p>
+<p><strong>Use Cases</strong>
+- Separate first and last names from full name column
+- Split address into street, city, state components
+- Extract area code from phone numbers
+- Separate product code components
+- Parse email addresses into username and domain</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Split Type</th>
+<th>Before Column</th>
+<th>After Columns</th>
+<th>Delimiter/Rule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>By Delimiter</td>
+<td>"John Smith"</td>
+<td>"John" | "Smith"</td>
+<td>Space character</td>
+</tr>
+<tr>
+<td>By Position</td>
+<td>"ABC12345"</td>
+<td>"ABC" | "12345"</td>
+<td>After 3 characters</td>
+</tr>
+<tr>
+<td>By Pattern</td>
+<td>"john.doe@email.com"</td>
+<td>"john.doe" | "email.com"</td>
+<td>@ symbol</td>
+</tr>
+<tr>
+<td>By Rows</td>
+<td>"Product A\nProduct B"</td>
+<td>Row 1: "Product A"<br>Row 2: "Product B"</td>
+<td>Line break</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. <strong>Split by Delimiter:</strong>
+   - Select column to split
+   - Transform tab → "Split Column" → "By Delimiter"
+   - Choose or enter delimiter
+   - Select split options (each occurrence, leftmost, rightmost)
+   - Choose number of columns to create</p>
+<ol>
+<li><strong>Split by Character Position:</strong></li>
+<li>Transform tab → "Split Column" → "By Number of Characters"</li>
+<li>Enter character positions</li>
+<li>
+<p>Choose split direction (left-to-right or right-to-left)</p>
+</li>
+<li>
+<p><strong>Split by Pattern:</strong></p>
+</li>
+<li>Transform tab → "Split Column" → "By Delimiter"</li>
+<li>Use Advanced options for regex patterns</li>
+</ol>
+<p><strong>Cautions/Pitfalls</strong>
+- Delimiter might appear in data unexpectedly
+- Consider what happens with missing delimiters
+- Extra delimiters create additional columns
+- Data may not split evenly across all rows
+- Review all rows after splitting, not just preview
+- Splitting reduces original column (backup if needed)</p>
+<p><strong>Pro Tips</strong>
+- Test split operations on a small sample before applying to full dataset
+- Use "Advanced Options" to control how many splits occur (split at first occurrence vs. all occurrences)
+- Consider using "Extract" functions for specific patterns instead of splitting everything
+- Use regex patterns in advanced splitting for complex scenarios
+- Add error handling for inconsistent data formats
+- Create a backup query before major splitting operations
+- Use "Split Column by Positions" for fixed-width data formats</p>
+<hr />
+<h3 id="merging-columns">Merging Columns<a class="headerlink" href="#merging-columns" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Column merging combines multiple columns into a single column using specified separators or custom formats to create consolidated data fields.</p>
+<p><strong>Use Cases</strong>
+- Combine first and last names into full name
+- Create complete addresses from separate components
+- Merge date and time columns
+- Concatenate product details into descriptions
+- Build unique identifiers from multiple fields</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Merge Purpose</th>
+<th>Before Columns</th>
+<th>After Column</th>
+<th>Separator</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Full Name</td>
+<td>"John" | "Smith"</td>
+<td>"John Smith"</td>
+<td>Space</td>
+</tr>
+<tr>
+<td>Address</td>
+<td>"123 Main St" | "City" | "CA"</td>
+<td>"123 Main St, City, CA"</td>
+<td>Comma-space</td>
+</tr>
+<tr>
+<td>Product Code</td>
+<td>"CAT" | "001" | "A"</td>
+<td>"CAT-001-A"</td>
+<td>Hyphen</td>
+</tr>
+<tr>
+<td>Date-Time</td>
+<td>"2024-01-15" | "14:30:00"</td>
+<td>"2024-01-15 14:30:00"</td>
+<td>Space</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. <strong>Basic Merge:</strong>
+   - Select multiple columns (Ctrl+click)
+   - Transform tab → "Merge Columns"
+   - Choose separator (Tab, Comma, Space, Custom)
+   - Enter new column name
+   - Original columns are removed</p>
+<ol>
+<li><strong>Advanced Merge:</strong></li>
+<li>Add Column tab → "Custom Column"</li>
+<li>Use formula: <code>[Column1] &amp; " " &amp; [Column2]</code></li>
+<li>Keeps original columns</li>
+</ol>
+<p><strong>Cautions/Pitfalls</strong>
+- Original columns are deleted in basic merge
+- Null values may cause unexpected results
+- Choose separators that don't appear in data
+- Consider formatting needs (spaces, punctuation)
+- Test with various data combinations
+- Empty fields may create double separators</p>
+<p><strong>Pro Tips</strong>
+- Use custom columns instead of merge columns when you need to keep original columns
+- Handle null values explicitly in merge formulas: <code>if [Col1] = null then "" else [Col1]</code>
+- Consider using Text.Combine() function for more control over null handling
+- Test merged results with edge cases (null values, empty strings, special characters)
+- Use consistent separators across your organization for similar data patterns
+- Create custom functions for frequently used merge patterns
+- Validate merged data by spot-checking against source columns</p>
+<hr />
+<h3 id="transposing-data">Transposing Data<a class="headerlink" href="#transposing-data" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Transposing swaps rows and columns, turning horizontal data into vertical format or vice versa, useful for restructuring summary data or cross-tabulated information.</p>
+<p><strong>Use Cases</strong>
+- Convert monthly sales columns to rows for time-series analysis
+- Restructure survey responses from wide to long format
+- Transform pivot table outputs for further analysis
+- Convert configuration settings from horizontal to vertical
+- Reshape financial statements for consistent reporting</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Before (Wide Format)</th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Product</td>
+<td>Q1</td>
+<td>Q2</td>
+<td>Q3</td>
+</tr>
+<tr>
+<td>Widget</td>
+<td>100</td>
+<td>120</td>
+<td>140</td>
+</tr>
+<tr>
+<td>Gadget</td>
+<td>80</td>
+<td>90</td>
+<td>95</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>After (Transposed)</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Attribute</td>
+<td>Value</td>
+</tr>
+<tr>
+<td>Product</td>
+<td>Widget</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>100</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>120</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>140</td>
+</tr>
+<tr>
+<td>Product</td>
+<td>Gadget</td>
+</tr>
+<tr>
+<td>Q1</td>
+<td>80</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>90</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>95</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. Select the query to transpose
+2. Transform tab → "Transpose"
+3. Data rows become columns and columns become rows
+4. First row often needs to be promoted to headers
+5. Consider using "Use First Row as Headers" if appropriate</p>
+<p><strong>Cautions/Pitfalls</strong>
+- All data must be compatible types after transposing
+- Column headers become data values
+- May need additional unpivoting after transpose
+- Large datasets may have performance issues
+- Review data types after transposing
+- Consider if unpivoting is better alternative</p>
+<p><strong>Pro Tips</strong>
+- Transpose is often followed by "Use First Row as Headers" operation
+- Consider whether unpivoting might be more appropriate for your scenario
+- Test transpose operations with small datasets first due to performance impact
+- Document the business reason for transposing in your query steps
+- Consider creating a backup query before transposing
+- Use transpose for converting configuration tables to more analysis-friendly formats
+- Combine transpose with other operations like filtering to handle specific data layouts</p>
+<hr />
+<h3 id="pivoting-columns">Pivoting Columns<a class="headerlink" href="#pivoting-columns" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Pivoting transforms unique values from a column into multiple columns, creating a cross-tabulated structure similar to Excel pivot tables.</p>
+<p><strong>Use Cases</strong>
+- Convert transaction data to monthly columns
+- Transform survey responses to question columns
+- Create product sales matrix by region
+- Convert time-series data to period columns
+- Build comparison tables from normalized data</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Before (Long Format)</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Region</td>
+<td>Month</td>
+<td>Sales</td>
+</tr>
+<tr>
+<td>East</td>
+<td>Jan</td>
+<td>100</td>
+</tr>
+<tr>
+<td>East</td>
+<td>Feb</td>
+<td>120</td>
+</tr>
+<tr>
+<td>West</td>
+<td>Jan</td>
+<td>80</td>
+</tr>
+<tr>
+<td>West</td>
+<td>Feb</td>
+<td>90</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>After (Pivoted on Month)</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Region</td>
+<td>Jan</td>
+<td>Feb</td>
+</tr>
+<tr>
+<td>East</td>
+<td>100</td>
+<td>120</td>
+</tr>
+<tr>
+<td>West</td>
+<td>80</td>
+<td>90</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. Select the column containing values to become new column headers
+2. Transform tab → "Pivot Column"
+3. Choose the values column (data to populate the matrix)
+4. Select aggregation function if needed (Sum, Count, Average, etc.)
+5. Review resulting cross-tabulated structure</p>
+<p><strong>Cautions/Pitfalls</strong>
+- Creates columns for every unique value (can be many)
+- May create sparse data with many nulls
+- Aggregation function affects final values
+- Column names come from data values
+- Performance impact with high cardinality
+- Consider filtering unique values first</p>
+<p><strong>Pro Tips</strong>
+- Filter your pivot column values before pivoting to control the number of columns created
+- Use "Don't Aggregate" option when you know there's only one value per combination
+- Consider using parameters to dynamically filter pivot values
+- Pivot operations work well with Group By operations as a preliminary step
+- Test with a subset of data first to see how many columns will be created
+- Document aggregation function choice for business user understanding
+- Consider unpivoting as the inverse operation if you need to reverse the transformation</p>
+<hr />
+<h3 id="unpivoting-columns">Unpivoting Columns<a class="headerlink" href="#unpivoting-columns" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Unpivoting transforms multiple columns into key-value pairs, converting wide format data into long format suitable for analysis and visualization.</p>
+<p><strong>Use Cases</strong>
+- Convert monthly sales columns into time-series format
+- Transform wide survey data into analyzable format
+- Normalize cross-tabulated financial data
+- Convert Excel pivot table outputs for Power BI
+- Prepare data for trend analysis and forecasting</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Before (Wide Format)</th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Product</td>
+<td>Jan</td>
+<td>Feb</td>
+<td>Mar</td>
+</tr>
+<tr>
+<td>Widget</td>
+<td>100</td>
+<td>120</td>
+<td>140</td>
+</tr>
+<tr>
+<td>Gadget</td>
+<td>80</td>
+<td>90</td>
+<td>95</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>After (Unpivoted)</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Product</td>
+<td>Attribute</td>
+<td>Value</td>
+</tr>
+<tr>
+<td>Widget</td>
+<td>Jan</td>
+<td>100</td>
+</tr>
+<tr>
+<td>Widget</td>
+<td>Feb</td>
+<td>120</td>
+</tr>
+<tr>
+<td>Widget</td>
+<td>Mar</td>
+<td>140</td>
+</tr>
+<tr>
+<td>Gadget</td>
+<td>Jan</td>
+<td>80</td>
+</tr>
+<tr>
+<td>Gadget</td>
+<td>Feb</td>
+<td>90</td>
+</tr>
+<tr>
+<td>Gadget</td>
+<td>Mar</td>
+<td>95</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. <strong>Unpivot Selected Columns:</strong>
+   - Select columns to unpivot (Ctrl+click)
+   - Transform tab → "Unpivot Columns"</p>
+<ol>
+<li><strong>Unpivot Other Columns:</strong></li>
+<li>Select columns to keep as-is</li>
+<li>
+<p>Transform tab → "Unpivot Other Columns"</p>
+</li>
+<li>
+<p><strong>Rename Generated Columns:</strong></p>
+</li>
+<li>Rename "Attribute" to meaningful name (e.g., "Month")</li>
+<li>Rename "Value" to appropriate name (e.g., "Sales")</li>
+</ol>
+<p><strong>Cautions/Pitfalls</strong>
+- Choose correct columns to unpivot vs. keep
+- Generated column names may need customization
+- Data types should be consistent across unpivoted columns
+- May significantly increase row count
+- Consider performance with large datasets
+- Null values in original columns become null rows</p>
+<p><strong>Pro Tips</strong>
+- Use "Unpivot Other Columns" when you have many columns to unpivot - it's more maintainable
+- Always rename the "Attribute" and "Value" columns to business-meaningful names
+- Filter out null values after unpivoting to reduce row count
+- Use unpivoting to prepare data for time-series analysis in Power BI
+- Consider data types of unpivoted columns - they should be compatible
+- Document the business logic behind column selection for unpivoting
+- Combine unpivoting with date parsing when column names contain date information</p>
+<hr />
+<h3 id="filling-updown">Filling Up/Down<a class="headerlink" href="#filling-updown" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Fill operations populate empty cells by copying values from adjacent cells either upward or downward, useful for handling grouped or hierarchical data structures.</p>
+<p><strong>Use Cases</strong>
+- Fill missing group headers in imported reports
+- Complete hierarchical data with missing parent values
+- Handle Excel data with merged cells (imported as nulls)
+- Fill category names in product listings
+- Complete time-series data with missing intervals</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Before (Fill Down)</th>
+<th>After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Category: Electronics</td>
+<td>Category: Electronics</td>
+</tr>
+<tr>
+<td>Category: [null]</td>
+<td>Category: Electronics</td>
+</tr>
+<tr>
+<td>Category: [null]</td>
+<td>Category: Electronics</td>
+</tr>
+<tr>
+<td>Category: Clothing</td>
+<td>Category: Clothing</td>
+</tr>
+<tr>
+<td>Category: [null]</td>
+<td>Category: Clothing</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Before (Fill Up)</th>
+<th>After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Product: [null]</td>
+<td>Product: Widget</td>
+</tr>
+<tr>
+<td>Product: [null]</td>
+<td>Product: Widget</td>
+</tr>
+<tr>
+<td>Product: Widget</td>
+<td>Product: Widget</td>
+</tr>
+<tr>
+<td>Product: [null]</td>
+<td>Product: Gadget</td>
+</tr>
+<tr>
+<td>Product: Gadget</td>
+<td>Product: Gadget</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. Select column with missing values to fill
+2. Transform tab → "Fill" → choose direction:
+   - "Down": Copy values downward to fill nulls below
+   - "Up": Copy values upward to fill nulls above</p>
+<p><strong>Cautions/Pitfalls</strong>
+- Only fills null/empty values, doesn't overwrite existing data
+- Direction matters - choose based on data structure
+- May propagate incorrect values if source data is wrong
+- Consider business logic before filling
+- Works best with grouped or hierarchical data
+- Verify results with sample of filled data</p>
+<p><strong>Pro Tips</strong>
+- Sort data appropriately before filling to ensure logical groupings
+- Use fill operations carefully with time-series data - verify the business logic
+- Combine with grouping operations to fill within logical boundaries
+- Consider using conditional columns for more complex fill logic
+- Test fill operations on a sample to understand the pattern before applying to full dataset
+- Document the business justification for filling missing values
+- Use in combination with other cleaning operations for best results</p>
+<hr />
+<h2 id="6-adding-new-columns">6. Adding New Columns<a class="headerlink" href="#6-adding-new-columns" title="Permanent link">&para;</a></h2>
+<h3 id="adding-custom-columns-using-m-language">Adding Custom Columns (using M language)<a class="headerlink" href="#adding-custom-columns-using-m-language" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Custom columns allow creation of new calculated columns using M language expressions, providing flexibility for complex transformations and business logic implementation.</p>
+<p><strong>Use Cases</strong>
+- Calculate profit margins from cost and price
+- Create age categories from birth dates
+- Build compound identifiers from multiple fields
+- Implement complex business rules
+- Generate flags based on multiple conditions</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Business Logic</th>
+<th>Source Columns</th>
+<th>Custom Column</th>
+<th>M Expression</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Profit Margin</td>
+<td>Price: $100, Cost: $70</td>
+<td>Margin: 30%</td>
+<td><code>([Price] - [Cost]) / [Price]</code></td>
+</tr>
+<tr>
+<td>Full Name</td>
+<td>FirstName: "John", LastName: "Smith"</td>
+<td>FullName: "John Smith"</td>
+<td><code>[FirstName] &amp; " " &amp; [LastName]</code></td>
+</tr>
+<tr>
+<td>Age Category</td>
+<td>Age: 35</td>
+<td>AgeGroup: "Adult"</td>
+<td><code>if [Age] &lt; 18 then "Minor" else "Adult"</code></td>
+</tr>
+<tr>
+<td>Days Since Order</td>
+<td>OrderDate: 1/15/2024</td>
+<td>DaysSince: 45</td>
+<td><code>Duration.Days(DateTime.LocalNow() - [OrderDate])</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. Add Column tab → "Custom Column"
+2. Enter new column name
+3. Write M expression in formula box
+4. Use "Available columns" list for reference
+5. Validate syntax (green checkmark appears)
+6. Click OK to create column
+7. Verify results and data type</p>
+<p><strong>Cautions/Pitfalls</strong>
+- M language is case-sensitive
+- Handle null values in expressions (use <code>try...otherwise</code>)
+- Test expressions with various data scenarios
+- Consider performance impact of complex calculations
+- Data types may need adjustment after creation
+- Use parentheses for proper operation order</p>
+<p><strong>Pro Tips</strong>
+- Use the "Available columns" list to avoid typing errors in column names
+- Start with simple expressions and build complexity gradually
+- Use let...in statements for complex calculations to improve readability
+- Test custom columns with edge cases including nulls and extreme values
+- Create a library of common M expressions for reuse across projects
+- Use meaningful column names that reflect business purpose, not technical implementation
+- Comment complex M code using /<em> </em>/ for future maintenance</p>
+<hr />
+<h3 id="adding-conditional-columns">Adding Conditional Columns<a class="headerlink" href="#adding-conditional-columns" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Conditional columns create new columns based on if-then-else logic using a user-friendly interface, eliminating the need to write M language code for simple conditions.</p>
+<p><strong>Use Cases</strong>
+- Categorize customers by sales volume (High, Medium, Low)
+- Create performance ratings based on scores
+- Generate region codes based on state/country
+- Set priority levels based on urgency and impact
+- Flag records based on business criteria</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Condition Logic</th>
+<th>Source Column</th>
+<th>Condition</th>
+<th>Result</th>
+<th>New Column Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sales Performance</td>
+<td>SalesAmount</td>
+<td>≥ $10,000 = "High"<br>≥ $5,000 = "Medium"<br>Else = "Low"</td>
+<td>Performance: "High", "Medium", "Low"</td>
+<td></td>
+</tr>
+<tr>
+<td>Age Classification</td>
+<td>Age</td>
+<td>&lt; 18 = "Minor"<br>&lt; 65 = "Adult"<br>Else = "Senior"</td>
+<td>AgeCategory: "Minor", "Adult", "Senior"</td>
+<td></td>
+</tr>
+<tr>
+<td>Region Assignment</td>
+<td>State</td>
+<td>"CA", "OR", "WA" = "West"<br>"NY", "NJ", "CT" = "East"<br>Else = "Other"</td>
+<td>Region: "West", "East", "Other"</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. Add Column tab → "Conditional Column"
+2. Enter new column name
+3. Set up conditions:
+   - Choose column to evaluate
+   - Select operator (equals, greater than, etc.)
+   - Enter comparison value
+   - Enter result value
+4. Add multiple conditions using "Add Clause"
+5. Set "Else" value for unmatched conditions
+6. Click OK to create column</p>
+<p><strong>Cautions/Pitfalls</strong>
+- Conditions are evaluated in order (top to bottom)
+- Make sure conditions don't overlap unexpectedly
+- "Else" clause catches all remaining cases
+- Use appropriate data types for comparisons
+- Consider null values in source columns
+- Test with edge cases and boundary values</p>
+<p><strong>Pro Tips</strong>
+- Order conditions from most specific to most general (narrow to broad)
+- Use the "Else" clause to handle unexpected values gracefully
+- Test conditional logic with boundary values to ensure correct classification
+- Document the business rules behind conditions for future reference
+- Consider using parameters for threshold values that might change
+- Use meaningful output values that business users will understand
+- Validate conditional results by creating temporary grouping analysis</p>
+<hr />
+<h3 id="adding-index-columns">Adding Index Columns<a class="headerlink" href="#adding-index-columns" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Index columns add sequential numbers to each row, providing unique row identifiers or maintaining original row order for later reference.</p>
+<p><strong>Use Cases</strong>
+- Create unique row identifiers for duplicate data
+- Maintain original sort order before other transformations
+- Generate sequence numbers for reporting
+- Create primary keys for tables without them
+- Track row positions for audit purposes</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Index Type</th>
+<th>Before</th>
+<th>After</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>From 1</td>
+<td>Name: "John"<br>Name: "Jane"</td>
+<td>Index: 1, Name: "John"<br>Index: 2, Name: "Jane"</td>
+<td>Standard numbering</td>
+</tr>
+<tr>
+<td>From 0</td>
+<td>Product: "A"<br>Product: "B"</td>
+<td>Index: 0, Product: "A"<br>Index: 1, Product: "B"</td>
+<td>Programming-style indexing</td>
+</tr>
+<tr>
+<td>Custom Start</td>
+<td>Order: "ABC"<br>Order: "DEF"</td>
+<td>ID: 1001, Order: "ABC"<br>ID: 1002, Order: "DEF"</td>
+<td>Custom numbering scheme</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. Add Column tab → "Index Column"
+2. Choose index type:
+   - "From 1": Standard numbering starting at 1
+   - "From 0": Programming-style starting at 0
+   - "Custom": Specify starting number and increment
+3. For custom index:
+   - Enter starting value
+   - Enter increment value (usually 1)
+4. New index column appears as first column
+5. Rename column if needed</p>
+<p><strong>Cautions/Pitfalls</strong>
+- Index reflects current row order, not original data order
+- Filtering or sorting changes index values
+- Index column is typically integer data type
+- May want to move index column to desired position
+- Consider if index should be preserved through transformations
+- Large datasets may have performance considerations</p>
+<p><strong>Pro Tips</strong>
+- Add index columns early in transformations to preserve original row order
+- Use custom starting values to align with existing numbering systems
+- Consider whether you need the index in the final data model or just for processing
+- Use index columns to create unique identifiers when natural keys don't exist
+- Remember that index values will change if rows are filtered or reordered
+- Use descriptive names for index columns (OriginalRowOrder, SequenceNumber, etc.)
+- Consider removing index columns before final load if not needed for analysis</p>
+<hr />
+<h3 id="adding-column-from-examples">Adding Column From Examples<a class="headerlink" href="#adding-column-from-examples" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Column from Examples uses AI to detect patterns from sample outputs you provide, automatically generating the necessary transformation logic to create the new column.</p>
+<p><strong>Use Cases</strong>
+- Extract patterns from complex text fields
+- Parse inconsistent date formats
+- Create formatted output from multiple fields
+- Generate codes or abbreviations
+- Transform data without writing formulas</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Pattern to Learn</th>
+<th>Source Data</th>
+<th>Example Input</th>
+<th>Generated Column</th>
+<th>AI-Detected Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Extract First Name</td>
+<td>"John Smith"</td>
+<td>Type "John"</td>
+<td>FirstName: "John"</td>
+<td>Extract text before space</td>
+</tr>
+<tr>
+<td>Format Phone</td>
+<td>"1234567890"</td>
+<td>Type "(123) 456-7890"</td>
+<td>FormattedPhone</td>
+<td>Phone number formatting</td>
+</tr>
+<tr>
+<td>Create Initials</td>
+<td>"John Smith"</td>
+<td>Type "JS"</td>
+<td>Initials: "JS"</td>
+<td>First letter of each word</td>
+</tr>
+<tr>
+<td>Extract Domain</td>
+<td>"user@domain.com"</td>
+<td>Type "domain.com"</td>
+<td>Domain: "domain.com"</td>
+<td>Extract text after @</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. Add Column tab → "Column from Examples"
+2. Choose source columns (or use "From All Columns")
+3. In the new column, type examples of desired output
+4. Provide 2-3 examples showing the pattern
+5. Power Query detects pattern and fills remaining rows
+6. Review generated results
+7. Click OK if pattern is correct
+8. Edit examples and retry if pattern is wrong</p>
+<p><strong>Cautions/Pitfalls</strong>
+- AI may not detect complex patterns correctly
+- Provide diverse examples to improve accuracy
+- Review all generated results, not just visible ones
+- May need manual M code editing for edge cases
+- Works best with consistent, logical patterns
+- Some patterns may require traditional custom columns instead</p>
+<p><strong>Pro Tips</strong>
+- Provide examples that represent edge cases in your data
+- Use diverse examples to help the AI understand the full pattern
+- Start with 2-3 examples, then add more if the pattern isn't detected correctly
+- Review the generated M code to understand what logic was created
+- Test with a larger sample of data before applying to the full dataset
+- Save successful patterns as custom functions for reuse
+- Combine with other column operations when the AI gets close but not perfect</p>
+<hr />
+<h2 id="7-specific-transformation-types">7. Specific Transformation Types<a class="headerlink" href="#7-specific-transformation-types" title="Permanent link">&para;</a></h2>
+<h3 id="text-transformations">Text Transformations<a class="headerlink" href="#text-transformations" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Text transformations modify string data through various operations including cleaning, formatting, case changes, and extraction to standardize and improve data quality.</p>
+<p><strong>Use Cases</strong>
+- Standardize customer names and addresses
+- Clean imported data with extra spaces
+- Extract specific information from text fields
+- Format text for consistent presentation
+- Parse unstructured text data</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Transformation</th>
+<th>Before</th>
+<th>After</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Trim</td>
+<td>"  John Smith  "</td>
+<td>"John Smith"</td>
+<td>Remove extra spaces</td>
+</tr>
+<tr>
+<td>Upper Case</td>
+<td>"john smith"</td>
+<td>"JOHN SMITH"</td>
+<td>Consistent formatting</td>
+</tr>
+<tr>
+<td>Title Case</td>
+<td>"JOHN SMITH"</td>
+<td>"John Smith"</td>
+<td>Proper name formatting</td>
+</tr>
+<tr>
+<td>Clean</td>
+<td>"John\tSmith\n"</td>
+<td>"John Smith"</td>
+<td>Remove non-printable characters</td>
+</tr>
+<tr>
+<td>Extract Length</td>
+<td>"Hello World"</td>
+<td>11</td>
+<td>Count characters</td>
+</tr>
+<tr>
+<td>Extract First Characters</td>
+<td>"Hello World"</td>
+<td>"Hello" (first 5)</td>
+<td>Get substring</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. <strong>Basic Text Operations:</strong>
+   - Select text column
+   - Transform tab → "Format" → Choose operation:
+     - "Trim": Remove leading/trailing spaces
+     - "Clean": Remove non-printable characters
+     - "Lower Case/Upper Case/Title Case/Capitalize Each Word"</p>
+<ol>
+<li><strong>Extract Operations:</strong></li>
+<li>
+<p>Transform tab → "Extract" → Choose:</p>
+<ul>
+<li>"Length": Character count</li>
+<li>"First Characters": Substring from beginning</li>
+<li>"Last Characters": Substring from end</li>
+<li>"Range": Substring from position</li>
+<li>"Text Before/After Delimiter"</li>
+</ul>
+</li>
+<li>
+<p><strong>Parse Operations:</strong></p>
+</li>
+<li>Transform tab → "Parse" → Choose format:<ul>
+<li>"JSON", "XML" for structured text</li>
+</ul>
+</li>
+</ol>
+<p><strong>Cautions/Pitfalls</strong>
+- Trim only removes spaces, not other whitespace characters
+- Case changes are permanent - backup original if needed
+- Extract operations create new columns, original remains
+- Consider locale-specific text rules (accented characters)
+- Some operations may not work with null values
+- Test with international characters and special symbols</p>
+<p><strong>Pro Tips</strong>
+- Use "Clean" transformation to remove non-printable characters from imported data
+- Apply text transformations early in the process for consistent results
+- Use "Text Before Delimiter" and "Text After Delimiter" for precise extractions
+- Consider creating custom functions for complex text parsing patterns
+- Test text operations with international characters and special symbols
+- Use Text.Combine() function for joining text with null handling
+- Document text transformation rules for business user understanding</p>
+<hr />
+<h3 id="number-transformations">Number Transformations<a class="headerlink" href="#number-transformations" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Number transformations perform mathematical operations, formatting changes, and data type conversions on numerical data to support calculations and analysis requirements.</p>
+<p><strong>Use Cases</strong>
+- Round financial amounts to appropriate precision
+- Convert between different number formats
+- Perform mathematical calculations
+- Standardize scientific notation
+- Apply statistical functions</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Transformation</th>
+<th>Before</th>
+<th>After</th>
+<th>Business Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Round</td>
+<td>123.456789</td>
+<td>123.46</td>
+<td>Currency formatting (2 decimals)</td>
+</tr>
+<tr>
+<td>Absolute Value</td>
+<td>-150</td>
+<td>150</td>
+<td>Distance or magnitude calculations</td>
+</tr>
+<tr>
+<td>Power</td>
+<td>2</td>
+<td>8 (power of 3)</td>
+<td>Compound growth calculations</td>
+</tr>
+<tr>
+<td>Square Root</td>
+<td>25</td>
+<td>5</td>
+<td>Standard deviation calculations</td>
+</tr>
+<tr>
+<td>Modulo</td>
+<td>17</td>
+<td>2 (mod 5)</td>
+<td>Grouping or cycling calculations</td>
+</tr>
+<tr>
+<td>Scientific</td>
+<td>0.000123</td>
+<td>1.23E-04</td>
+<td>Very large or small numbers</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. <strong>Standard Operations:</strong>
+   - Select numeric column
+   - Transform tab → "Number Column" → Choose:
+     - "Rounding": Round, Round Up, Round Down
+     - "Information": Sign, Absolute Value
+     - "Operations": Add, Subtract, Multiply, Divide, Power, Modulo
+     - "Trigonometry": Sine, Cosine, Tangent, etc.</p>
+<ol>
+<li><strong>Scientific Operations:</strong></li>
+<li>
+<p>Transform tab → "Scientific" → Choose:</p>
+<ul>
+<li>"Logarithm", "Factorial", "Square Root"</li>
+</ul>
+</li>
+<li>
+<p><strong>Custom Calculations:</strong></p>
+</li>
+<li>Add Column tab → "Custom Column"</li>
+<li>Use mathematical operators (+, -, *, /, ^)</li>
+</ol>
+<p><strong>Cautions/Pitfalls</strong>
+- Division by zero creates errors - handle with try/otherwise
+- Rounding can accumulate precision errors in calculations
+- Consider significant digits for scientific calculations
+- Some operations may change data type
+- Null values in calculations typically result in null
+- Verify precision requirements for financial calculations</p>
+<p><strong>Pro Tips</strong>
+- Use Number.Round() with specified decimal places for financial data
+- Handle division by zero with try...otherwise or conditional logic
+- Consider using Number.IsNaN() to detect invalid number operations
+- Apply number transformations after ensuring proper data types
+- Use statistical functions (like percentiles) for data quality analysis
+- Document rounding rules for financial compliance
+- Test mathematical operations with edge cases (very large/small numbers, negatives)</p>
+<hr />
+<h3 id="date-time-transformations">Date &amp; Time Transformations<a class="headerlink" href="#date-time-transformations" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Date and time transformations extract components, calculate durations, and perform temporal operations to support time-based analysis and reporting.</p>
+<p><strong>Use Cases</strong>
+- Extract year, month, day for grouping and filtering
+- Calculate age from birth dates
+- Determine business days between dates
+- Extract time components for scheduling analysis
+- Create fiscal year and quarter calculations</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Transformation</th>
+<th>Source Date/Time</th>
+<th>Result</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Extract Year</td>
+<td>2024-03-15</td>
+<td>2024</td>
+<td>Annual reporting</td>
+</tr>
+<tr>
+<td>Extract Month Name</td>
+<td>2024-03-15</td>
+<td>"March"</td>
+<td>Monthly analysis</td>
+</tr>
+<tr>
+<td>Extract Day of Week</td>
+<td>2024-03-15</td>
+<td>"Friday"</td>
+<td>Weekday patterns</td>
+</tr>
+<tr>
+<td>Age Calculation</td>
+<td>DOB: 1985-06-15</td>
+<td>39 (years)</td>
+<td>Customer demographics</td>
+</tr>
+<tr>
+<td>Duration</td>
+<td>Start: 09:00, End: 17:30</td>
+<td>8.5 (hours)</td>
+<td>Work time calculation</td>
+</tr>
+<tr>
+<td>Add Days</td>
+<td>2024-03-15</td>
+<td>2024-03-22 (+7 days)</td>
+<td>Due date calculation</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. <strong>Extract Date Components:</strong>
+   - Select date column
+   - Transform tab → "Date" → Choose:
+     - "Year", "Month", "Day"
+     - "Day of Week", "Day Name"
+     - "Month Name", "Quarter"
+     - "Week of Year"</p>
+<ol>
+<li><strong>Extract Time Components:</strong></li>
+<li>
+<p>Transform tab → "Time" → Choose:</p>
+<ul>
+<li>"Hour", "Minute", "Second"</li>
+</ul>
+</li>
+<li>
+<p><strong>Calculate Duration:</strong></p>
+</li>
+<li>
+<p>Transform tab → "Duration" → Choose:</p>
+<ul>
+<li>"Days", "Hours", "Minutes", "Seconds"</li>
+<li>"Total Years", "Total Days"</li>
+</ul>
+</li>
+<li>
+<p><strong>Date Arithmetic:</strong></p>
+</li>
+<li>Add Column tab → "Custom Column"</li>
+<li>Use functions like <code>Date.AddDays([Date], 30)</code></li>
+</ol>
+<p><strong>Cautions/Pitfalls</strong>
+- Ensure proper date data type before transformations
+- Time zones can affect calculations
+- Leap years impact date calculations
+- Duration calculations may need business day logic
+- Consider regional date formats
+- Null dates will result in null calculations</p>
+<p><strong>Pro Tips</strong>
+- Create fiscal year calculations using Date.Year() with conditional logic for fiscal calendar alignment
+- Use Date.IsInCurrentWeek(), Date.IsInCurrentMonth() for dynamic date filtering
+- Extract date parts early in transformations for better query folding
+- Use Duration.Days() for calculating differences between dates
+- Consider business day calculations for accurate turnaround time analysis
+- Create date dimension tables for consistent date-based reporting
+- Handle time zones explicitly when working with datetime data from multiple regions</p>
+<hr />
+<h2 id="8-combining-queries">8. Combining Queries<a class="headerlink" href="#8-combining-queries" title="Permanent link">&para;</a></h2>
+<h3 id="appending-queries">Appending Queries<a class="headerlink" href="#appending-queries" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Appending queries combines rows from multiple queries with similar structures into a single query, essentially stacking datasets vertically.</p>
+<p><strong>Use Cases</strong>
+- Combine monthly sales files into yearly dataset
+- Merge data from multiple regional offices
+- Consolidate historical data with current data
+- Unite survey responses from different periods
+- Aggregate product data from various sources</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Before - Query 1 (Q1 Sales)</th>
+<th>Before - Query 2 (Q2 Sales)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Date: 2024-01-15, Product: Widget, Amount: $100</td>
+<td>Date: 2024-04-15, Product: Widget, Amount: $120</td>
+</tr>
+<tr>
+<td>Date: 2024-02-20, Product: Gadget, Amount: $200</td>
+<td>Date: 2024-05-20, Product: Gadget, Amount: $180</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>After - Appended Query</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Date: 2024-01-15, Product: Widget, Amount: $100</td>
+</tr>
+<tr>
+<td>Date: 2024-02-20, Product: Gadget, Amount: $200</td>
+</tr>
+<tr>
+<td>Date: 2024-04-15, Product: Widget, Amount: $120</td>
+</tr>
+<tr>
+<td>Date: 2024-05-20, Product: Gadget, Amount: $180</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. <strong>Two Queries Method:</strong>
+   - In Queries pane, right-click first query
+   - Select "Append Queries"
+   - Choose second query to append
+   - Select append option (create new query or append to first)</p>
+<ol>
+<li><strong>Multiple Queries Method:</strong></li>
+<li>Home tab → "Append Queries" → "Append Queries as New"</li>
+<li>Select "Three or more tables"</li>
+<li>Add queries to append list</li>
+<li>
+<p>Arrange order if needed</p>
+</li>
+<li>
+<p><strong>Review Results:</strong></p>
+</li>
+<li>Check column alignment</li>
+<li>Verify data types match</li>
+<li>Handle any schema differences</li>
+</ol>
+<p><strong>Cautions/Pitfalls</strong>
+- Column names must match exactly (case-sensitive)
+- Data types should be compatible across queries
+- Extra columns in one query will be null in others
+- Order of rows in result follows order of queries
+- Performance considerations with very large datasets
+- Consider creating a function for recurring appends</p>
+<p><strong>Pro Tips</strong>
+- Create a standardized column order and naming convention before appending
+- Use "Append Queries as New" to preserve original queries
+- Add a source identifier column before appending to track data origin
+- Validate data types are consistent across all queries before appending
+- Consider using folder connections for multiple files with identical structure
+- Test append operations with sample data from each source first
+- Document the business logic for combining different data sources</p>
+<hr />
+<h3 id="merging-queries-join-operations">Merging Queries (Join Operations)<a class="headerlink" href="#merging-queries-join-operations" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Merging queries combines columns from multiple queries based on matching values in specified key columns, similar to SQL JOIN operations.</p>
+<p><strong>Use Cases</strong>
+- Add customer details to sales transactions
+- Enrich product sales with inventory information
+- Combine employee records with department details
+- Link survey responses with participant demographics
+- Match transactions with account information</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Before - Sales Query</th>
+<th>Before - Customer Query</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OrderID: 1001, CustomerID: C123, Amount: $100</td>
+<td>CustomerID: C123, Name: "John Smith", City: "New York"</td>
+</tr>
+<tr>
+<td>OrderID: 1002, CustomerID: C456, Amount: $200</td>
+<td>CustomerID: C456, Name: "Jane Doe", City: "Chicago"</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>After - Merged Query (Inner Join)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OrderID: 1001, CustomerID: C123, Amount: $100, Name: "John Smith", City: "New York"</td>
+</tr>
+<tr>
+<td>OrderID: 1002, CustomerID: C456, Amount: $200, Name: "Jane Doe", City: "Chicago"</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Join Types Comparison:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Join Type</th>
+<th>Description</th>
+<th>Use Case</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Inner Join</td>
+<td>Only matching records</td>
+<td>Standard data enrichment</td>
+<td>Records exist in both tables</td>
+</tr>
+<tr>
+<td>Left Outer</td>
+<td>All records from left table</td>
+<td>Keep all primary records</td>
+<td>All left + matching right</td>
+</tr>
+<tr>
+<td>Right Outer</td>
+<td>All records from right table</td>
+<td>Rarely used in BI</td>
+<td>All right + matching left</td>
+</tr>
+<tr>
+<td>Full Outer</td>
+<td>All records from both tables</td>
+<td>Complete data comparison</td>
+<td>All records, nulls where no match</td>
+</tr>
+<tr>
+<td>Left Anti</td>
+<td>Records only in left table</td>
+<td>Find missing relationships</td>
+<td>Left records without right match</td>
+</tr>
+<tr>
+<td>Right Anti</td>
+<td>Records only in right table</td>
+<td>Find orphaned records</td>
+<td>Right records without left match</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. <strong>Basic Merge:</strong>
+   - Select primary query (left table)
+   - Home tab → "Merge Queries"
+   - Select second query (right table)
+   - Choose key columns from both tables
+   - Select join kind from dropdown
+   - Click OK</p>
+<ol>
+<li><strong>Expand Columns:</strong></li>
+<li>Click expand icon in new column header</li>
+<li>Select columns to include from merged table</li>
+<li>
+<p>Choose whether to use original column names as prefix</p>
+</li>
+<li>
+<p><strong>Advanced Options:</strong></p>
+</li>
+<li>Use "Merge Queries as New" to create separate result</li>
+<li>Enable "Fuzzy matching" for approximate matches</li>
+<li>Set matching tolerance for fuzzy joins</li>
+</ol>
+<p><strong>Cautions/Pitfalls</strong>
+- Key columns must have compatible data types
+- Case sensitivity affects text matches
+- Null values in keys may cause unexpected results
+- One-to-many relationships multiply rows
+- Performance impact with large datasets
+- Consider indexing in source systems
+- Fuzzy matching requires careful tolerance setting</p>
+<p><strong>Pro Tips</strong>
+- Always validate key columns have compatible data types before merging
+- Use "Merge Queries as New" to preserve original queries for troubleshooting
+- Check for null values in key columns before merging
+- Use fuzzy matching cautiously and with appropriate tolerance settings (80-90%)
+- Consider data quality: clean and standardize key columns before merging
+- Document join logic and expected cardinality for business users
+- Test merges with a subset of data to verify expected results
+- Use anti-joins to identify data quality issues (orphaned records)</p>
+<hr />
+<h2 id="9-advanced-transformation-concepts">9. Advanced Transformation Concepts<a class="headerlink" href="#9-advanced-transformation-concepts" title="Permanent link">&para;</a></h2>
+<h3 id="creating-and-using-query-parameters">Creating and Using Query Parameters<a class="headerlink" href="#creating-and-using-query-parameters" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Query parameters are dynamic values that can be referenced throughout queries, enabling flexible and reusable transformations that adapt to changing requirements without code modification.</p>
+<p><strong>Use Cases</strong>
+- Create date range filters that can be easily updated
+- Build reusable file path references
+- Set threshold values for business rules
+- Configure database connection strings
+- Enable dynamic filtering based on user input</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter Use</th>
+<th>Static Approach</th>
+<th>Parameter Approach</th>
+<th>Benefit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Date Filter</td>
+<td><code>Table.SelectRows(Source, each [OrderDate] &gt;= #date(2024,1,1))</code></td>
+<td><code>Table.SelectRows(Source, each [OrderDate] &gt;= StartDate)</code></td>
+<td>Easy date updates</td>
+</tr>
+<tr>
+<td>File Path</td>
+<td><code>Excel.Workbook(File.Contents("C:\Data\Sales.xlsx"))</code></td>
+<td><code>Excel.Workbook(File.Contents(FilePath))</code></td>
+<td>Environment flexibility</td>
+</tr>
+<tr>
+<td>Sales Threshold</td>
+<td><code>Table.SelectRows(Source, each [Amount] &gt;= 1000)</code></td>
+<td><code>Table.SelectRows(Source, each [Amount] &gt;= MinSales)</code></td>
+<td>Business rule changes</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. <strong>Create Parameter:</strong>
+   - Home tab → "Manage Parameters" → "New Parameter"
+   - Enter parameter name (e.g., "StartDate")
+   - Select data type (Text, Number, Date, etc.)
+   - Set current value
+   - Add description for documentation</p>
+<ol>
+<li><strong>Use Parameter in Query:</strong></li>
+<li>In formula bar, reference parameter name</li>
+<li>Example: <code>Table.SelectRows(Source, each [Date] &gt;= StartDate)</code></li>
+<li>
+<p>Parameter appears in "Queries" pane under "Parameters" section</p>
+</li>
+<li>
+<p><strong>Update Parameter Values:</strong></p>
+</li>
+<li>Right-click parameter in Queries pane</li>
+<li>Select "Edit Parameter"</li>
+<li>Update current value</li>
+<li>Refresh queries to apply changes</li>
+</ol>
+<p><strong>Cautions/Pitfalls</strong>
+- Parameter data types must match usage context
+- Parameters are query-scoped, not global across all queries
+- Changes to parameters affect all referencing queries
+- Consider default values for reliability
+- Document parameter purpose and expected values
+- Test parameter changes with various values</p>
+<p><strong>Pro Tips</strong>
+- Use parameters for values that change regularly (date ranges, thresholds, file paths)
+- Create parameter documentation with expected value ranges and business context
+- Use meaningful parameter names that reflect business purpose
+- Set up parameter validation in queries using conditional logic
+- Consider using parameter lists for dropdown-style selections
+- Group related parameters with consistent naming conventions
+- Test parameter changes across all dependent queries before deploying</p>
+<hr />
+<h3 id="creating-and-invoking-custom-functions">Creating and Invoking Custom Functions<a class="headerlink" href="#creating-and-invoking-custom-functions" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Custom functions are reusable M language code blocks that accept parameters and return processed results, enabling standardized transformations across multiple queries.</p>
+<p><strong>Use Cases</strong>
+- Standardize data cleaning routines across multiple files
+- Create complex business calculations for reuse
+- Build custom data parsing logic
+- Implement organization-specific data transformations
+- Centralize common formatting operations</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Function Purpose</th>
+<th>Repetitive Code</th>
+<th>Custom Function</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Clean Name</td>
+<td><code>Text.Trim(Text.Proper([Name]))</code> in multiple queries</td>
+<td><code>CleanName = (name) =&gt; Text.Trim(Text.Proper(name))</code></td>
+<td><code>CleanName([CustomerName])</code></td>
+</tr>
+<tr>
+<td>Calculate Age</td>
+<td><code>Number.RoundDown(Duration.Days(DateTime.LocalNow() - [BirthDate]) / 365)</code></td>
+<td><code>CalculateAge = (birthDate) =&gt; Number.RoundDown(Duration.Days(DateTime.LocalNow() - birthDate) / 365)</code></td>
+<td><code>CalculateAge([DOB])</code></td>
+</tr>
+<tr>
+<td>Format Phone</td>
+<td>Complex text manipulation repeated</td>
+<td><code>FormatPhone = (phoneNumber) =&gt; ...</code></td>
+<td><code>FormatPhone([Phone])</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. <strong>Create Custom Function:</strong>
+   - Home tab → "New Source" → "Blank Query"
+   - In formula bar, write function:
+     <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>(parameter1, parameter2) =&gt; 
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>let
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    // transformation steps
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    result = // final calculation
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>in
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    result
+</span></code></pre></div>
+   - Rename query to function name
+   - Function appears in Queries pane</p>
+<ol>
+<li><strong>Invoke Function:</strong></li>
+<li>In target query, Add Column tab → "Invoke Custom Function"</li>
+<li>Select function name</li>
+<li>Map source columns to function parameters</li>
+<li>
+<p>New column created with function results</p>
+</li>
+<li>
+<p><strong>Alternative Invocation:</strong></p>
+</li>
+<li>Use in custom column: <code>FunctionName([Column1], [Column2])</code></li>
+</ol>
+<p><strong>Cautions/Pitfalls</strong>
+- Functions must handle null values appropriately
+- Parameter data types should be validated
+- Test functions with edge cases
+- Document function parameters and expected outputs
+- Functions can impact query folding
+- Consider performance with complex functions</p>
+<p><strong>Pro Tips</strong>
+- Start with simple functions and build complexity gradually
+- Include error handling (try...otherwise) within functions
+- Document functions with comments explaining parameters and return values
+- Test functions with edge cases including null values and extreme scenarios
+- Create a function library with consistent naming conventions
+- Use meaningful parameter names in function definitions
+- Consider function performance impact on large datasets</p>
+<hr />
+<h3 id="referencing-and-duplicating-queries">Referencing and Duplicating Queries<a class="headerlink" href="#referencing-and-duplicating-queries" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Query referencing creates a new query that dynamically points to another query's result, while duplicating creates an independent copy. Both enable query reuse and branching transformations.</p>
+<p><strong>Use Cases</strong>
+- Create summary queries from detailed data
+- Branch queries for different analysis paths
+- Build data marts from single source
+- Create backup copies before major changes
+- Implement multi-step data processing pipelines</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Original Query</th>
+<th>Reference Query</th>
+<th>Duplicate Query</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sales Analysis</td>
+<td>RawSales (all transactions)</td>
+<td>SummaryByProduct (references RawSales)</td>
+<td>SalesBackup (independent copy)</td>
+</tr>
+<tr>
+<td>Customer Data</td>
+<td>CustomerMaster</td>
+<td>ActiveCustomers (filtered reference)</td>
+<td>CustomerArchive (historical copy)</td>
+</tr>
+<tr>
+<td>Multi-step Process</td>
+<td>Step1_Import</td>
+<td>Step2_Clean (references Step1)</td>
+<td>Step1_Backup (safety copy)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key Differences:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Reference</th>
+<th>Duplicate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Data Source</td>
+<td>Points to original query</td>
+<td>Independent copy of original</td>
+</tr>
+<tr>
+<td>Updates</td>
+<td>Auto-updates when original changes</td>
+<td>Independent, no auto-updates</td>
+</tr>
+<tr>
+<td>Performance</td>
+<td>More efficient (single source)</td>
+<td>Potentially slower (separate processing)</td>
+</tr>
+<tr>
+<td>Use Case</td>
+<td>Branching transformations</td>
+<td>Backup or variant analysis</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. <strong>Create Reference:</strong>
+   - Right-click source query in Queries pane
+   - Select "Reference"
+   - New query appears with same data
+   - Apply different transformations to reference
+   - Original query changes affect reference automatically</p>
+<ol>
+<li><strong>Create Duplicate:</strong></li>
+<li>Right-click source query in Queries pane</li>
+<li>Select "Duplicate"</li>
+<li>New independent query created</li>
+<li>Changes to original don't affect duplicate</li>
+<li>
+<p>Rename duplicate appropriately</p>
+</li>
+<li>
+<p><strong>Manage Query Dependencies:</strong></p>
+</li>
+<li>View → "Query Dependencies" shows relationships</li>
+<li>Understand impact of changes to source queries</li>
+</ol>
+<p><strong>Cautions/Pitfalls</strong>
+- References create dependencies - deleting source breaks references
+- Circular references are not allowed
+- References can create performance bottlenecks
+- Consider query folding impact with references
+- Document query relationships for maintenance
+- Be careful when modifying source queries with references</p>
+<p><strong>Pro Tips</strong>
+- Use references for branching logic from a common cleaned dataset
+- Create duplicates for backup purposes before major query modifications
+- Use meaningful naming conventions to identify reference relationships
+- Document query dependencies for team collaboration
+- Consider performance implications of deep reference chains
+- Use the Query Dependencies view to visualize query relationships
+- Plan query architecture before creating complex reference structures</p>
+<hr />
+<h3 id="organizing-queries-groups">Organizing Queries (Groups)<a class="headerlink" href="#organizing-queries-groups" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Query groups provide organizational structure in the Queries pane, allowing logical categorization of related queries for better navigation and maintenance.</p>
+<p><strong>Use Cases</strong>
+- Group queries by data source (Sales, Finance, HR)
+- Organize by processing stage (Raw, Cleaned, Aggregated)
+- Separate production queries from development/testing
+- Group related functions and parameters
+- Create logical data pipeline sections</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Before (Unorganized)</th>
+<th>After (Organized Groups)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CustomerData<br>SalesQ1<br>SalesQ2<br>ProductInfo<br>CleanCustomer<br>SalesSummary</td>
+<td><strong>Data Sources</strong><br>├── CustomerData<br>├── ProductInfo<br><strong>Sales Queries</strong><br>├── SalesQ1<br>├── SalesQ2<br>├── SalesSummary<br><strong>Processed Data</strong><br>├── CleanCustomer</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. <strong>Create New Group:</strong>
+   - Right-click in Queries pane empty area
+   - Select "New Group"
+   - Enter group name (e.g., "Data Sources")
+   - Group folder appears in Queries pane</p>
+<ol>
+<li><strong>Move Queries to Group:</strong></li>
+<li>Drag and drop queries into group folders</li>
+<li>
+<p>Or right-click query → "Move to Group" → Select group</p>
+</li>
+<li>
+<p><strong>Create Nested Groups:</strong></p>
+</li>
+<li>Right-click existing group → "New Group"</li>
+<li>
+<p>Creates subgroup within parent group</p>
+</li>
+<li>
+<p><strong>Group Management:</strong></p>
+</li>
+<li>Rename groups by right-clicking</li>
+<li>Delete empty groups</li>
+<li>Expand/collapse groups for navigation</li>
+</ol>
+<p><strong>Cautions/Pitfalls</strong>
+- Groups are purely organizational - don't affect functionality
+- Moving queries doesn't change dependencies
+- Empty groups may be automatically removed
+- Group names should be descriptive and consistent
+- Consider standardizing group naming conventions
+- Groups don't affect query execution order</p>
+<p><strong>Pro Tips</strong>
+- Establish group naming conventions early in project development
+- Group by business function rather than technical implementation
+- Use nested groups for complex projects with many queries
+- Color-code or use prefixes for different types of queries within groups
+- Document group structure and purpose for team members
+- Regularly review and reorganize groups as projects evolve
+- Use groups to separate development/testing queries from production queries</p>
+<hr />
+<h3 id="error-handling-in-power-query">Error Handling in Power Query<a class="headerlink" href="#error-handling-in-power-query" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Error handling in Power Query involves anticipating and managing data quality issues, connection problems, and transformation errors to create robust and reliable data processes.</p>
+<p><strong>Use Cases</strong>
+- Handle missing files or connection failures gracefully
+- Manage data type conversion errors
+- Deal with divide-by-zero calculations
+- Handle null values in complex expressions
+- Provide meaningful error messages for debugging</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Error Scenario</th>
+<th>Without Error Handling</th>
+<th>With Error Handling</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Division by Zero</td>
+<td><code>[Sales] / [Units]</code> → Error</td>
+<td><code>try [Sales] / [Units] otherwise 0</code> → 0</td>
+</tr>
+<tr>
+<td>Missing File</td>
+<td>Query fails completely</td>
+<td><code>try Excel.Workbook(...) otherwise #table(...)</code> → Empty table</td>
+</tr>
+<tr>
+<td>Data Type Conversion</td>
+<td><code>Number.FromText([TextNumber])</code> → Error</td>
+<td><code>try Number.FromText([TextNumber]) otherwise null</code> → null</td>
+</tr>
+<tr>
+<td>Null Value Operations</td>
+<td><code>[FirstName] &amp; " " &amp; [LastName]</code> → Error if null</td>
+<td><code>try [FirstName] &amp; " " &amp; [LastName] otherwise "Unknown"</code> → "Unknown"</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Error Handling Techniques:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Syntax</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Try-Otherwise</td>
+<td><code>try [operation] otherwise [fallback]</code></td>
+<td>Handle specific operation errors</td>
+</tr>
+<tr>
+<td>If-Null Check</td>
+<td><code>if [Column] = null then [default] else [Column]</code></td>
+<td>Null value handling</td>
+</tr>
+<tr>
+<td>Error.Record</td>
+<td><code>Error.Record("Type", "Reason", "Detail")</code></td>
+<td>Custom error creation</td>
+</tr>
+<tr>
+<td>Table.ReplaceErrorValues</td>
+<td><code>Table.ReplaceErrorValues(table, {{"Column", "Replacement"}})</code></td>
+<td>Replace errors in entire columns</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. <strong>Basic Try-Otherwise:</strong>
+   - In custom column or formula bar
+   - Wrap risky operation: <code>try [RiskyOperation] otherwise [SafeValue]</code></p>
+<ol>
+<li><strong>Column-Level Error Replacement:</strong></li>
+<li>Transform tab → "Replace Errors"</li>
+<li>Enter replacement value for errors</li>
+<li>
+<p>Applies to entire selected column</p>
+</li>
+<li>
+<p><strong>Conditional Error Handling:</strong></p>
+</li>
+<li>Add Column → Custom Column</li>
+<li>
+<p>Use if-then logic: <code>if [Column] = null then "Default" else [Operation]</code></p>
+</li>
+<li>
+<p><strong>Query-Level Error Handling:</strong></p>
+</li>
+<li>Wrap entire query steps in try-otherwise</li>
+<li>Provide fallback data sources or empty tables</li>
+</ol>
+<p><strong>Cautions/Pitfalls</strong>
+- Error handling can mask data quality issues
+- Performance impact of extensive error checking
+- Document why error handling is needed
+- Test error scenarios thoroughly
+- Don't hide errors that indicate data problems
+- Consider logging errors for monitoring
+- Balance robustness with data accuracy</p>
+<p><strong>Pro Tips</strong>
+- Implement error handling proactively for known problem areas
+- Use descriptive error replacement values that indicate the source of the problem
+- Log errors to a separate table for monitoring and analysis
+- Test error handling by deliberately introducing errors in test data
+- Consider business impact when choosing error handling strategies
+- Document error handling decisions for audit and compliance purposes
+- Use conditional logic to handle different error scenarios appropriately
+- Monitor error patterns to identify systemic data quality issues</p>
+<hr />
+<h2 id="10-performance-considerations-and-best-practices">10. Performance Considerations and Best Practices<a class="headerlink" href="#10-performance-considerations-and-best-practices" title="Permanent link">&para;</a></h2>
+<h3 id="optimizing-query-folding">Optimizing Query Folding<a class="headerlink" href="#optimizing-query-folding" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Query folding optimization ensures that transformation operations are pushed back to the data source whenever possible, leveraging the source system's processing power and reducing data transfer.</p>
+<p><strong>Use Cases</strong>
+- Improve performance with large SQL Server datasets
+- Reduce network traffic from cloud data sources
+- Leverage database indexing and optimization
+- Minimize memory usage in Power BI
+- Speed up refresh operations</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Transformation</th>
+<th>Folding Status</th>
+<th>Performance Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Filter rows on indexed column</td>
+<td>✅ Folds to WHERE clause</td>
+<td>Fast - uses database index</td>
+</tr>
+<tr>
+<td>Remove unnecessary columns</td>
+<td>✅ Folds to SELECT list</td>
+<td>Reduced network transfer</td>
+</tr>
+<tr>
+<td>Sort by database column</td>
+<td>✅ Folds to ORDER BY</td>
+<td>Fast - database optimization</td>
+</tr>
+<tr>
+<td>Custom function on text</td>
+<td>❌ Breaks folding</td>
+<td>Slow - processes in Power Query</td>
+</tr>
+<tr>
+<td>Complex calculated column</td>
+<td>❌ Breaks folding</td>
+<td>Slow - all data transferred</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Folding-Friendly Operations:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Operation Category</th>
+<th>Foldable Examples</th>
+<th>Non-Foldable Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Filtering</td>
+<td>Column filters, date ranges</td>
+<td>Custom function filters</td>
+</tr>
+<tr>
+<td>Column Operations</td>
+<td>Remove columns, rename</td>
+<td>Complex text transformations</td>
+</tr>
+<tr>
+<td>Sorting</td>
+<td>Standard sort operations</td>
+<td>Sort by calculated column</td>
+</tr>
+<tr>
+<td>Aggregation</td>
+<td>Group by with standard functions</td>
+<td>Custom aggregation functions</td>
+</tr>
+<tr>
+<td>Joins</td>
+<td>Inner/outer joins on key columns</td>
+<td>Fuzzy matching joins</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. <strong>Check Folding Status:</strong>
+   - Right-click on Applied Steps
+   - Look for "View Native Query" option
+   - If available, step is folding
+   - Review generated SQL/query</p>
+<ol>
+<li><strong>Optimize for Folding:</strong></li>
+<li>Apply filters early in transformation sequence</li>
+<li>Remove unnecessary columns before complex operations</li>
+<li>Use standard transformations when possible</li>
+<li>
+<p>Avoid custom functions in early steps</p>
+</li>
+<li>
+<p><strong>Monitor Folding Impact:</strong></p>
+</li>
+<li>View → "Query Diagnostics"</li>
+<li>Start diagnostics before refresh</li>
+<li>Review performance metrics</li>
+<li>Identify folding breaks</li>
+</ol>
+<p><strong>Cautions/Pitfalls</strong>
+- Not all data sources support folding
+- Custom functions typically break folding
+- Complex text operations may prevent folding
+- One broken step affects all subsequent steps
+- Balance functionality with performance
+- Test folding with realistic data volumes</p>
+<p><strong>Pro Tips</strong>
+- Structure transformations to maximize folding: filters and column removal first, complex operations last
+- Use database views or stored procedures for complex logic that doesn't fold well
+- Monitor folding status regularly, especially after making changes
+- Create "folding-friendly" versions of common transformations
+- Use SQL Profiler or database monitoring tools to see actual queries generated
+- Consider creating summary tables in the database for complex aggregations
+- Document which operations break folding for your team's reference</p>
+<hr />
+<h3 id="disabling-query-load-and-refresh">Disabling Query Load and Refresh<a class="headerlink" href="#disabling-query-load-and-refresh" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Query load and refresh settings control whether queries load data into the Power BI model and participate in refresh operations, optimizing performance by excluding intermediate or reference queries.</p>
+<p><strong>Use Cases</strong>
+- Exclude intermediate transformation steps from data model
+- Prevent loading of lookup tables used only for enrichment
+- Disable loading of backup or archive queries
+- Control which queries consume memory
+- Optimize refresh performance</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Query Type</th>
+<th>Load Setting</th>
+<th>Refresh Setting</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Raw data import</td>
+<td>Enabled</td>
+<td>Enabled</td>
+<td>Final query for reports</td>
+</tr>
+<tr>
+<td>Data cleaning steps</td>
+<td>Disabled</td>
+<td>Enabled</td>
+<td>Intermediate processing</td>
+</tr>
+<tr>
+<td>Lookup table (small)</td>
+<td>Disabled</td>
+<td>Enabled</td>
+<td>Used for enrichment only</td>
+</tr>
+<tr>
+<td>Backup query</td>
+<td>Disabled</td>
+<td>Disabled</td>
+<td>Archival purposes only</td>
+</tr>
+<tr>
+<td>Custom functions</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>Functions don't load/refresh</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Load vs. Refresh Settings:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Enabled</th>
+<th>Disabled</th>
+<th>Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Enable Load</td>
+<td>Loads into data model</td>
+<td>Excluded from model</td>
+<td>Memory usage, model size</td>
+</tr>
+<tr>
+<td>Include in Report Refresh</td>
+<td>Refreshes with dataset</td>
+<td>Skips during refresh</td>
+<td>Refresh time, data freshness</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. <strong>Configure Load Settings:</strong>
+   - Right-click query in Queries pane
+   - Uncheck "Enable load" to exclude from model
+   - Query still executes for dependencies</p>
+<ol>
+<li><strong>Configure Refresh Settings:</strong></li>
+<li>Right-click query in Queries pane</li>
+<li>Uncheck "Include in report refresh"</li>
+<li>
+<p>Query won't update during refresh operations</p>
+</li>
+<li>
+<p><strong>Bulk Configuration:</strong></p>
+</li>
+<li>Home tab → "Close &amp; Apply" dropdown</li>
+<li>"Close &amp; Apply" vs. "Close &amp; Apply Later"</li>
+<li>Set options before applying</li>
+</ol>
+<p><strong>Cautions/Pitfalls</strong>
+- Disabled queries may still be needed by references
+- Consider data freshness requirements
+- Refresh dependencies must be maintained
+- Disabled refresh can lead to stale data
+- Document load/refresh decisions
+- Review settings periodically</p>
+<p><strong>Pro Tips</strong>
+- Disable loading for intermediate transformation queries to reduce memory usage
+- Keep refresh enabled for queries that feed into loaded queries
+- Use load/refresh settings strategically for development vs. production environments
+- Document the purpose of each query and its load/refresh requirements
+- Review query dependencies before changing load/refresh settings
+- Consider creating separate development queries with loading disabled
+- Monitor model size and refresh performance after changing settings</p>
+<hr />
+<h3 id="using-query-diagnostics">Using Query Diagnostics<a class="headerlink" href="#using-query-diagnostics" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Query Diagnostics provides detailed performance metrics and execution information for Power Query operations, enabling identification of bottlenecks and optimization opportunities.</p>
+<p><strong>Use Cases</strong>
+- Identify slow-performing transformation steps
+- Analyze data source connection performance
+- Monitor query folding effectiveness
+- Troubleshoot refresh failures
+- Optimize complex query sequences</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Diagnostic Metric</th>
+<th>Example Reading</th>
+<th>Interpretation</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Evaluation Duration</td>
+<td>15 seconds</td>
+<td>Step took 15s to complete</td>
+<td>Investigate optimization</td>
+</tr>
+<tr>
+<td>Folding Status</td>
+<td>"DataSource.Contents"</td>
+<td>Query folded to source</td>
+<td>Good performance</td>
+</tr>
+<tr>
+<td>Row Count</td>
+<td>1,000,000 → 50,000</td>
+<td>Filter reduced 95% of data</td>
+<td>Effective filtering</td>
+</tr>
+<tr>
+<td>Memory Usage</td>
+<td>150 MB</td>
+<td>High memory consumption</td>
+<td>Consider chunking</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Diagnostic Information Available:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Metrics</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Performance</td>
+<td>Duration, CPU time</td>
+<td>Identify bottlenecks</td>
+</tr>
+<tr>
+<td>Data Flow</td>
+<td>Row counts, column counts</td>
+<td>Understand data volume</td>
+</tr>
+<tr>
+<td>Query Folding</td>
+<td>Native query text</td>
+<td>Verify source optimization</td>
+</tr>
+<tr>
+<td>Errors</td>
+<td>Error messages, stack traces</td>
+<td>Troubleshoot issues</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. <strong>Start Diagnostics:</strong>
+   - View tab → "Query Diagnostics"
+   - Choose "Start Diagnostics"
+   - Diagnostics begin recording</p>
+<ol>
+<li><strong>Perform Operations:</strong></li>
+<li>Execute query refresh or transformations</li>
+<li>
+<p>All operations are monitored and recorded</p>
+</li>
+<li>
+<p><strong>Stop and Review:</strong></p>
+</li>
+<li>View tab → "Query Diagnostics" → "Stop Diagnostics"</li>
+<li>
+<p>New queries appear in Queries pane:</p>
+<ul>
+<li>"Diagnostics" folder</li>
+<li>Individual step diagnostics</li>
+<li>Aggregated diagnostics</li>
+</ul>
+</li>
+<li>
+<p><strong>Analyze Results:</strong></p>
+</li>
+<li>Review duration and performance metrics</li>
+<li>Check for query folding indicators</li>
+<li>Identify optimization opportunities</li>
+</ol>
+<p><strong>Cautions/Pitfalls</strong>
+- Diagnostics add overhead to query execution
+- Enable only when troubleshooting performance
+- Large diagnostic datasets may impact performance
+- Focus on queries with longest execution times
+- Consider data source performance vs. transformation performance
+- Use representative data volumes for testing</p>
+<p><strong>Pro Tips</strong>
+- Run diagnostics on production-like data volumes for accurate results
+- Focus on the longest-running operations for optimization efforts
+- Compare diagnostics before and after optimization changes
+- Use diagnostics to validate query folding assumptions
+- Save diagnostic results for performance baseline documentation
+- Analyze diagnostic patterns to identify systematic performance issues
+- Use diagnostics to justify infrastructure or design changes</p>
+<hr />
+<h3 id="documentation-and-readability-of-queries">Documentation and Readability of Queries<a class="headerlink" href="#documentation-and-readability-of-queries" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>
+Query documentation involves adding meaningful names, descriptions, and comments to queries and transformation steps, making the data transformation process maintainable and understandable.</p>
+<p><strong>Use Cases</strong>
+- Enable team collaboration on complex transformations
+- Document business logic for audit and compliance
+- Facilitate knowledge transfer and training
+- Support troubleshooting and maintenance
+- Meet regulatory documentation requirements</p>
+<p><strong>Examples (Before &amp; After)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Documentation Element</th>
+<th>Before</th>
+<th>After</th>
+<th>Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Query Names</td>
+<td>Query1, Query2</td>
+<td>SalesData_Cleaned, CustomerMaster_Current</td>
+<td>Clear purpose</td>
+</tr>
+<tr>
+<td>Step Names</td>
+<td>Changed Type, Filtered Rows</td>
+<td>Set_Data_Types, Filter_Active_Customers</td>
+<td>Business context</td>
+</tr>
+<tr>
+<td>Step Descriptions</td>
+<td>(none)</td>
+<td>"Remove cancelled orders and returns"</td>
+<td>Clear business logic</td>
+</tr>
+<tr>
+<td>Parameter Names</td>
+<td>Parameter1</td>
+<td>ReportStartDate</td>
+<td>Self-documenting</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Documentation Best Practices:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Naming Convention</th>
+<th>Example</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Queries</td>
+<td>Purpose_Status</td>
+<td>Sales_Raw, Sales_Cleaned</td>
+<td>Clear data state</td>
+</tr>
+<tr>
+<td>Steps</td>
+<td>Verb_Object</td>
+<td>Remove_Test_Records</td>
+<td>Action description</td>
+</tr>
+<tr>
+<td>Parameters</td>
+<td>Descriptive_Name</td>
+<td>MinSalesThreshold</td>
+<td>Clear parameter purpose</td>
+</tr>
+<tr>
+<td>Groups</td>
+<td>Logical_Category</td>
+<td>Data_Sources, Processed_Data</td>
+<td>Organizational clarity</td>
+</tr>
+<tr>
+<td>Functions</td>
+<td>Action_Description</td>
+<td>CleanPhoneNumber</td>
+<td>Function purpose</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step-by-step in Power BI/Power Query</strong>
+1. <strong>Rename Queries:</strong>
+   - Right-click query name in Queries pane
+   - Select "Rename"
+   - Use descriptive, consistent naming</p>
+<ol>
+<li><strong>Rename Steps:</strong></li>
+<li>Right-click step in Applied Steps</li>
+<li>Select "Rename"</li>
+<li>
+<p>Use action-oriented names</p>
+</li>
+<li>
+<p><strong>Add Step Descriptions:</strong></p>
+</li>
+<li>Right-click step in Applied Steps</li>
+<li>Select "Properties"</li>
+<li>
+<p>Add detailed description of business logic</p>
+</li>
+<li>
+<p><strong>Document Parameters:</strong></p>
+</li>
+<li>Edit parameter properties</li>
+<li>Add comprehensive description</li>
+<li>
+<p>Include expected values and format</p>
+</li>
+<li>
+<p><strong>Create Documentation Queries:</strong></p>
+</li>
+<li>Create blank queries with documentation text</li>
+<li>Use as readme or instruction queries</li>
+<li>Include change logs and version information</li>
+</ol>
+<p><strong>Cautions/Pitfalls</strong>
+- Consistent naming conventions across team/organization
+- Keep documentation up-to-date with changes
+- Don't over-document simple, obvious operations
+- Focus on business logic, not technical implementation
+- Consider creating documentation templates
+- Review and update documentation regularly</p>
+<p><strong>Pro Tips</strong>
+- Establish naming conventions early and enforce them consistently
+- Create documentation templates for complex projects
+- Use version control principles: document what changed and why
+- Include business context in documentation, not just technical details
+- Create a data dictionary alongside query documentation
+- Use consistent prefixes or suffixes to indicate query status (Raw_, Clean_, Final_)
+- Document data quality assumptions and business rule implementations
+- Include contact information for subject matter experts in documentation
+- Regular documentation reviews should be part of the development process</p>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.path", "navigation.top", "toc.follow", "search.suggest", "navigation.tracking"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>

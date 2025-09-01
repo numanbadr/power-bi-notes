@@ -1,0 +1,2456 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://numanbadr.github.io/power-bi-notes/power-bi/data-normalization/normalization/">
+      
+      
+        <link rel="prev" href="../../combine-data/merge/">
+      
+      
+        <link rel="next" href="../star-schema/">
+      
+      
+      <link rel="icon" href="../../../assets/N_logo_icon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>Normalization - PowerBI Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../overrides/custom.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="amber" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction-to-data-normalization" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="PowerBI Notes" class="md-header__button md-logo" aria-label="PowerBI Notes" data-md-component="logo">
+      
+  <img src="../../../assets/N_Logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PowerBI Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Normalization
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="amber" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/numanbadr/power-bi-notes/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../.." class="md-tabs__link">
+          
+  
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../combine-data/parameter/" class="md-tabs__link">
+          
+  
+  
+  Class
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="PowerBI Notes" class="md-nav__button md-logo" aria-label="PowerBI Notes" data-md-component="logo">
+      
+  <img src="../../../assets/N_Logo.png" alt="logo">
+
+    </a>
+    PowerBI Notes
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/numanbadr/power-bi-notes/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Home
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PowerBI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Class
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Class
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Transformation
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Transformation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../combine-data/parameter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Parameter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Combine Data
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Combine Data
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../combine-data/append/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Append Queries
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../combine-data/merge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Merge Queries
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Table Normalization
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Table Normalization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Normalization
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Normalization
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#normal-forms-1nf-2nf-3nf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Normal Forms (1NF, 2NF, 3NF)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Normal Forms (1NF, 2NF, 3NF)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-first-normal-form-1nf" class="md-nav__link">
+    <span class="md-ellipsis">
+      a. First Normal Form (1NF)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-second-normal-form-2nf" class="md-nav__link">
+    <span class="md-ellipsis">
+      b. Second Normal Form (2NF)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-third-normal-form-3nf" class="md-nav__link">
+    <span class="md-ellipsis">
+      c. Third Normal Form (3NF)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-why-and-when-to-normalize-data-in-power-bi" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Why and When to Normalize Data in Power BI
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Why and When to Normalize Data in Power BI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#benefits-of-normalization-in-power-bi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Benefits of Normalization in Power BI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scenarios-and-indicators-for-when-normalization-is-necessary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scenarios and Indicators for When Normalization is Necessary
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-practical-example-unnormalized-data-scenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Practical Example: Unnormalized Data Scenario
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Practical Example: Unnormalized Data Scenario">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unnormalized-data-example-monthlysales_flat" class="md-nav__link">
+    <span class="md-ellipsis">
+      Unnormalized Data Example: MonthlySales_Flat
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-step-by-step-normalization-in-power-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Step-by-Step Normalization in Power Query
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Step-by-Step Normalization in Power Query">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-create-the-dimcustomer-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Create the DimCustomer Table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-create-the-dimemployee-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Create the DimEmployee Table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-create-the-dimproduct-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Create the DimProduct Table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-create-the-factsales-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Create the FactSales Table
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-final-normalized-tables-and-relationships" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Final Normalized Tables and Relationships
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Final Normalized Tables and Relationships">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#relationships-in-power-bi-model-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      Relationships in Power BI Model View
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../star-schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Star Schema
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#normal-forms-1nf-2nf-3nf" class="md-nav__link">
+    <span class="md-ellipsis">
+      Normal Forms (1NF, 2NF, 3NF)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Normal Forms (1NF, 2NF, 3NF)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-first-normal-form-1nf" class="md-nav__link">
+    <span class="md-ellipsis">
+      a. First Normal Form (1NF)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-second-normal-form-2nf" class="md-nav__link">
+    <span class="md-ellipsis">
+      b. Second Normal Form (2NF)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-third-normal-form-3nf" class="md-nav__link">
+    <span class="md-ellipsis">
+      c. Third Normal Form (3NF)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-why-and-when-to-normalize-data-in-power-bi" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Why and When to Normalize Data in Power BI
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Why and When to Normalize Data in Power BI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#benefits-of-normalization-in-power-bi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Benefits of Normalization in Power BI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scenarios-and-indicators-for-when-normalization-is-necessary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scenarios and Indicators for When Normalization is Necessary
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-practical-example-unnormalized-data-scenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Practical Example: Unnormalized Data Scenario
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Practical Example: Unnormalized Data Scenario">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unnormalized-data-example-monthlysales_flat" class="md-nav__link">
+    <span class="md-ellipsis">
+      Unnormalized Data Example: MonthlySales_Flat
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-step-by-step-normalization-in-power-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Step-by-Step Normalization in Power Query
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Step-by-Step Normalization in Power Query">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-create-the-dimcustomer-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Create the DimCustomer Table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-create-the-dimemployee-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Create the DimEmployee Table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-create-the-dimproduct-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Create the DimProduct Table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-create-the-factsales-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Create the FactSales Table
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-final-normalized-tables-and-relationships" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Final Normalized Tables and Relationships
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Final Normalized Tables and Relationships">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#relationships-in-power-bi-model-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      Relationships in Power BI Model View
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="introduction-to-data-normalization">Introduction to Data Normalization<a class="headerlink" href="#introduction-to-data-normalization" title="Permanent link">&para;</a></h1>
+<p>Data normalization is a systematic process of organizing data in a database or data model to reduce data redundancy and improve data integrity. Think of it as tidying up your data, ensuring each piece of information has a proper home and doesn't appear in multiple, unnecessary places.</p>
+<p>The process involves breaking down a large table into smaller, related tables and defining relationships between them. This approach helps prevent anomalies (inconsistencies) that can arise when data is updated, deleted, or inserted in unnormalized tables.</p>
+<p>To guide this process, database theory defines "normal forms." We'll look at the first three, which are most commonly applied:</p>
+<hr />
+<h2 id="normal-forms-1nf-2nf-3nf">Normal Forms (1NF, 2NF, 3NF)<a class="headerlink" href="#normal-forms-1nf-2nf-3nf" title="Permanent link">&para;</a></h2>
+<h3 id="a-first-normal-form-1nf">a. First Normal Form (1NF)<a class="headerlink" href="#a-first-normal-form-1nf" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>: A table is in 1NF if:  </p>
+<ol>
+<li>Each column contains atomic (indivisible) values.  </li>
+<li>There are no repeating groups of columns.  </li>
+<li>Each row is unique, typically ensured by a primary key.  </li>
+</ol>
+<hr />
+<p><strong>Unnormalized (Violating 1NF):</strong></p>
+<table>
+<thead>
+<tr>
+<th>OrderID</th>
+<th>Customer</th>
+<th>Full Address</th>
+<th>Product1</th>
+<th>Qty1</th>
+<th>Product2</th>
+<th>Qty2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>Alice</td>
+<td>123 Main St, Anytown</td>
+<td>Laptop</td>
+<td>1</td>
+<td>Mouse</td>
+<td>2</td>
+</tr>
+<tr>
+<td>102</td>
+<td>Bob</td>
+<td>456 Oak Ave, Cityville</td>
+<td>Keyboard</td>
+<td>1</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong>In 1NF (split into two tables):</strong></p>
+<p>Orders Table</p>
+<table>
+<thead>
+<tr>
+<th>OrderID</th>
+<th>Customer</th>
+<th>Street</th>
+<th>City</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>Alice</td>
+<td>123 Main St</td>
+<td>Anytown</td>
+</tr>
+<tr>
+<td>102</td>
+<td>Bob</td>
+<td>456 Oak Ave</td>
+<td>Cityville</td>
+</tr>
+</tbody>
+</table>
+<p>OrderDetails Table</p>
+<table>
+<thead>
+<tr>
+<th>OrderID</th>
+<th>Product</th>
+<th>Quantity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>Laptop</td>
+<td>1</td>
+</tr>
+<tr>
+<td>101</td>
+<td>Mouse</td>
+<td>2</td>
+</tr>
+<tr>
+<td>102</td>
+<td>Keyboard</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="b-second-normal-form-2nf">b. Second Normal Form (2NF)<a class="headerlink" href="#b-second-normal-form-2nf" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>: A table is in 2NF if it is already in 1NF, <strong>AND</strong> all non-key attributes are fully dependent on the <strong>entire primary key</strong>. This mainly applies when there is a composite key.</p>
+<hr />
+<p><strong>Unnormalized (Violating 2NF):</strong></p>
+<table>
+<thead>
+<tr>
+<th>OrderID</th>
+<th>ProductID</th>
+<th>ProductName</th>
+<th>ProductPrice</th>
+<th>Quantity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>1</td>
+<td>Laptop</td>
+<td>1200</td>
+<td>1</td>
+</tr>
+<tr>
+<td>101</td>
+<td>2</td>
+<td>Mouse</td>
+<td>25</td>
+<td>2</td>
+</tr>
+<tr>
+<td>102</td>
+<td>1</td>
+<td>Laptop</td>
+<td>1200</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>(Redundancy: <em>Laptop</em> and <em>1200</em> are repeated.)</p>
+<hr />
+<p><strong>In 2NF (split into two tables):</strong></p>
+<p>OrderDetails Table</p>
+<table>
+<thead>
+<tr>
+<th>OrderID</th>
+<th>ProductID</th>
+<th>Quantity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>101</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>101</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>102</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>Products Table</p>
+<table>
+<thead>
+<tr>
+<th>ProductID</th>
+<th>ProductName</th>
+<th>ProductPrice</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Laptop</td>
+<td>1200</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Mouse</td>
+<td>25</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="c-third-normal-form-3nf">c. Third Normal Form (3NF)<a class="headerlink" href="#c-third-normal-form-3nf" title="Permanent link">&para;</a></h3>
+<p><strong>Definition</strong>: A table is in 3NF if it is already in 2NF, <strong>AND</strong> there are no transitive dependencies. (No non-key attribute depends on another non-key attribute.)</p>
+<hr />
+<p><strong>Unnormalized (Violating 3NF):</strong></p>
+<table>
+<thead>
+<tr>
+<th>CustomerID</th>
+<th>CustomerName</th>
+<th>CustomerCity</th>
+<th>CitySalesRegion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C001</td>
+<td>Alice Smith</td>
+<td>New York</td>
+<td>East</td>
+</tr>
+<tr>
+<td>C002</td>
+<td>Bob Johnson</td>
+<td>Los Angeles</td>
+<td>West</td>
+</tr>
+<tr>
+<td>C003</td>
+<td>Charlie B.</td>
+<td>New York</td>
+<td>East</td>
+</tr>
+</tbody>
+</table>
+<p>(Problem: <em>CitySalesRegion</em> depends on <em>CustomerCity</em>, not directly on <em>CustomerID</em> → transitive dependency.)</p>
+<hr />
+<p><strong>In 3NF (split into two tables):</strong></p>
+<p>Customers Table</p>
+<table>
+<thead>
+<tr>
+<th>CustomerID</th>
+<th>CustomerName</th>
+<th>CustomerCity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C001</td>
+<td>Alice Smith</td>
+<td>New York</td>
+</tr>
+<tr>
+<td>C002</td>
+<td>Bob Johnson</td>
+<td>Los Angeles</td>
+</tr>
+<tr>
+<td>C003</td>
+<td>Charlie B.</td>
+<td>New York</td>
+</tr>
+</tbody>
+</table>
+<p>Cities Table</p>
+<table>
+<thead>
+<tr>
+<th>City</th>
+<th>SalesRegion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>New York</td>
+<td>East</td>
+</tr>
+<tr>
+<td>Los Angeles</td>
+<td>West</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2-why-and-when-to-normalize-data-in-power-bi">2. Why and When to Normalize Data in Power BI<a class="headerlink" href="#2-why-and-when-to-normalize-data-in-power-bi" title="Permanent link">&para;</a></h2>
+<p>While databases often aim for higher normal forms, for analytical tools like Power BI, achieving 3NF or a well-structured star schema is generally sufficient and highly beneficial.</p>
+<h3 id="benefits-of-normalization-in-power-bi">Benefits of Normalization in Power BI<a class="headerlink" href="#benefits-of-normalization-in-power-bi" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>Reducing Data Redundancy:</strong></p>
+<ul>
+<li>Storing unique information only once (e.g., customer details in a <code>DimCustomer</code> table, product details in <code>DimProduct</code>).</li>
+<li><strong>Impact:</strong> Smaller file sizes, faster data refreshes, and more efficient use of memory.</li>
+</ul>
+</li>
+<li>
+<p><strong>Improving Data Integrity:</strong></p>
+<ul>
+<li>Less chance of inconsistencies when data changes. If a customer's address changes, you update it in one place (<code>DimCustomer</code>), not potentially across thousands of transaction rows.</li>
+<li><strong>Impact:</strong> More reliable and accurate reports.</li>
+</ul>
+</li>
+<li>
+<p><strong>Optimizing Model Performance:</strong></p>
+<ul>
+<li>Power BI's VertiPaq engine thrives on highly compressed, normalized data. Dimension tables (often containing low cardinality columns) can be compressed very efficiently.</li>
+<li><strong>Impact:</strong> Faster report interactions, quicker DAX calculations, and snappier dashboards.</li>
+</ul>
+</li>
+<li>
+<p><strong>Facilitating Easier Analysis with DAX:</strong></p>
+<ul>
+<li>Well-defined relationships between normalized tables simplify DAX formulas. You can easily aggregate measures from a fact table and slice them by attributes from related dimension tables without complex <code>LOOKUPVALUE</code> or <code>SUMMARIZE</code> functions.</li>
+<li><strong>Impact:</strong> Simpler to write and debug DAX, leading to more robust and flexible analytical models.</li>
+</ul>
+</li>
+</ol>
+<h3 id="scenarios-and-indicators-for-when-normalization-is-necessary">Scenarios and Indicators for When Normalization is Necessary<a class="headerlink" href="#scenarios-and-indicators-for-when-normalization-is-necessary" title="Permanent link">&para;</a></h3>
+<p>You should consider normalizing your data in Power BI when you encounter any of the following:</p>
+<ul>
+<li><strong>"Flat" Wide Tables:</strong> A single table that contains all transactional data along with all descriptive details (e.g., order lines, customer details, product details, employee details all in one massive table).</li>
+<li><strong>Repeating Groups of Data:</strong> Columns with a numeric suffix indicating multiple instances of the same attribute (e.g., <code>Product1_Name</code>, <code>Product1_Quantity</code>, <code>Product2_Name</code>, <code>Product2_Quantity</code>). This is a clear violation of 1NF.</li>
+<li><strong>Unpivot Scenarios:</strong> When attributes are stored as column headers rather than values in a single column (e.g., monthly sales data where each month is a column: <code>Jan_Sales</code>, <code>Feb_Sales</code>, <code>Mar_Sales</code>).</li>
+<li><strong>Duplicate Information:</strong> When you see the same descriptive text (like a customer's full address or an employee's region) repeated across many rows, especially in transactional data.</li>
+<li><strong>Single Column Holding Multiple Attributes:</strong> A column like "Product Code and Name" or "City-State-Zip" that needs to be broken down. This is a 1NF violation.</li>
+</ul>
+<hr />
+<h2 id="3-practical-example-unnormalized-data-scenario">3. Practical Example: Unnormalized Data Scenario<a class="headerlink" href="#3-practical-example-unnormalized-data-scenario" title="Permanent link">&para;</a></h2>
+<p>Let's consider a scenario for an electronics retail store. We have an export of "Monthly Sales Transactions" that lumps all information into a single table. This is typical of raw data extracts. We'll use a conceptual table of approximately 50 rows, but for demonstration purposes, a representative snippet is shown below.</p>
+<p>Our goal is to take this unnormalized table and transform it into a more efficient and analytical-friendly star schema using Power Query.</p>
+<h3 id="unnormalized-data-example-monthlysales_flat">Unnormalized Data Example: <code>MonthlySales_Flat</code><a class="headerlink" href="#unnormalized-data-example-monthlysales_flat" title="Permanent link">&para;</a></h3>
+<p>This table represents sales transactions over a few months. Notice how customer, employee, and especially product details are repeated or grouped within a single row.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">OrderID</th>
+<th style="text-align: left;">OrderDate</th>
+<th style="text-align: left;">CustomerName</th>
+<th style="text-align: left;">CustomerEmail</th>
+<th style="text-align: left;">CustomerCity</th>
+<th style="text-align: left;">EmployeeName</th>
+<th style="text-align: left;">EmployeeRegion</th>
+<th style="text-align: left;">Product1_Name</th>
+<th style="text-align: left;">Product1_Qty</th>
+<th style="text-align: left;">Product1_Price</th>
+<th style="text-align: left;">Product2_Name</th>
+<th style="text-align: left;">Product2_Qty</th>
+<th style="text-align: left;">Product2_Price</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1001</td>
+<td style="text-align: left;">2025-01-15</td>
+<td style="text-align: left;">Alice Smith</td>
+<td style="text-align: left;"><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#97;&#108;&#105;&#99;&#101;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#97;&#108;&#105;&#99;&#101;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></td>
+<td style="text-align: left;">New York</td>
+<td style="text-align: left;">John Doe</td>
+<td style="text-align: left;">North</td>
+<td style="text-align: left;">Laptop</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1200</td>
+<td style="text-align: left;">Mouse</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">25</td>
+</tr>
+<tr>
+<td style="text-align: left;">1002</td>
+<td style="text-align: left;">2025-01-15</td>
+<td style="text-align: left;">Bob Johnson</td>
+<td style="text-align: left;"><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#111;&#98;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#98;&#111;&#98;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></td>
+<td style="text-align: left;">Los Angeles</td>
+<td style="text-align: left;">Jane Doe</td>
+<td style="text-align: left;">West</td>
+<td style="text-align: left;">Keyboard</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">75</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">NULL</td>
+</tr>
+<tr>
+<td style="text-align: left;">1003</td>
+<td style="text-align: left;">2025-01-16</td>
+<td style="text-align: left;">Alice Smith</td>
+<td style="text-align: left;"><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#97;&#108;&#105;&#99;&#101;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#97;&#108;&#105;&#99;&#101;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></td>
+<td style="text-align: left;">New York</td>
+<td style="text-align: left;">John Doe</td>
+<td style="text-align: left;">North</td>
+<td style="text-align: left;">Monitor</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">300</td>
+<td style="text-align: left;">Webcam</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">50</td>
+</tr>
+<tr>
+<td style="text-align: left;">1004</td>
+<td style="text-align: left;">2025-01-16</td>
+<td style="text-align: left;">Charlie Brown</td>
+<td style="text-align: left;"><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#99;&#104;&#97;&#114;&#108;&#105;&#101;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#99;&#104;&#97;&#114;&#108;&#105;&#101;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></td>
+<td style="text-align: left;">Chicago</td>
+<td style="text-align: left;">Sam Spade</td>
+<td style="text-align: left;">Central</td>
+<td style="text-align: left;">Printer</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">250</td>
+<td style="text-align: left;">Ink Cartridge</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">30</td>
+</tr>
+<tr>
+<td style="text-align: left;">1005</td>
+<td style="text-align: left;">2025-01-17</td>
+<td style="text-align: left;">David Lee</td>
+<td style="text-align: left;"><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#100;&#97;&#118;&#105;&#100;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#100;&#97;&#118;&#105;&#100;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></td>
+<td style="text-align: left;">New York</td>
+<td style="text-align: left;">John Doe</td>
+<td style="text-align: left;">North</td>
+<td style="text-align: left;">USB Drive</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">15</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">NULL</td>
+</tr>
+<tr>
+<td style="text-align: left;">1006</td>
+<td style="text-align: left;">2025-02-01</td>
+<td style="text-align: left;">Bob Johnson</td>
+<td style="text-align: left;"><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#111;&#98;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#98;&#111;&#98;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></td>
+<td style="text-align: left;">Los Angeles</td>
+<td style="text-align: left;">Jane Doe</td>
+<td style="text-align: left;">West</td>
+<td style="text-align: left;">Headphones</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">100</td>
+<td style="text-align: left;">Microphone</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">60</td>
+</tr>
+<tr>
+<td style="text-align: left;">1007</td>
+<td style="text-align: left;">2025-02-02</td>
+<td style="text-align: left;">Alice Smith</td>
+<td style="text-align: left;"><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#97;&#108;&#105;&#99;&#101;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#97;&#108;&#105;&#99;&#101;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></td>
+<td style="text-align: left;">New York</td>
+<td style="text-align: left;">John Doe</td>
+<td style="text-align: left;">North</td>
+<td style="text-align: left;">Laptop</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1200</td>
+<td style="text-align: left;">External HDD</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">80</td>
+</tr>
+<tr>
+<td style="text-align: left;">1008</td>
+<td style="text-align: left;">2025-02-03</td>
+<td style="text-align: left;">Charlie Brown</td>
+<td style="text-align: left;"><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#99;&#104;&#97;&#114;&#108;&#105;&#101;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#99;&#104;&#97;&#114;&#108;&#105;&#101;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></td>
+<td style="text-align: left;">Chicago</td>
+<td style="text-align: left;">Sam Spade</td>
+<td style="text-align: left;">Central</td>
+<td style="text-align: left;">Keyboard</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">75</td>
+<td style="text-align: left;">Mouse</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">25</td>
+</tr>
+<tr>
+<td style="text-align: left;">1009</td>
+<td style="text-align: left;">2025-02-04</td>
+<td style="text-align: left;">Emily White</td>
+<td style="text-align: left;"><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#109;&#105;&#108;&#121;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#101;&#109;&#105;&#108;&#121;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></td>
+<td style="text-align: left;">Houston</td>
+<td style="text-align: left;">Jane Doe</td>
+<td style="text-align: left;">West</td>
+<td style="text-align: left;">Monitor</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">300</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">NULL</td>
+</tr>
+<tr>
+<td style="text-align: left;">1010</td>
+<td style="text-align: left;">2025-02-05</td>
+<td style="text-align: left;">Frank Green</td>
+<td style="text-align: left;"><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#102;&#114;&#97;&#110;&#107;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#102;&#114;&#97;&#110;&#107;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></td>
+<td style="text-align: left;">Miami</td>
+<td style="text-align: left;">John Doe</td>
+<td style="text-align: left;">North</td>
+<td style="text-align: left;">Printer</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">250</td>
+<td style="text-align: left;">Paper</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr>
+<td style="text-align: left;">1011</td>
+<td style="text-align: left;">2025-02-06</td>
+<td style="text-align: left;">George Black</td>
+<td style="text-align: left;"><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#103;&#101;&#111;&#114;&#103;&#101;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#103;&#101;&#111;&#114;&#103;&#101;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></td>
+<td style="text-align: left;">Seattle</td>
+<td style="text-align: left;">Sam Spade</td>
+<td style="text-align: left;">Central</td>
+<td style="text-align: left;">Scanner</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">150</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">NULL</td>
+<td style="text-align: left;">NULL</td>
+</tr>
+<tr>
+<td style="text-align: left;">1012</td>
+<td style="text-align: left;">2025-02-07</td>
+<td style="text-align: left;">Alice Smith</td>
+<td style="text-align: left;"><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#97;&#108;&#105;&#99;&#101;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#97;&#108;&#105;&#99;&#101;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></td>
+<td style="text-align: left;">New York</td>
+<td style="text-align: left;">John Doe</td>
+<td style="text-align: left;">North</td>
+<td style="text-align: left;">SSD Drive</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">60</td>
+<td style="text-align: left;">External Monitor</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">200</td>
+</tr>
+<tr>
+<td style="text-align: left;">...</td>
+<td style="text-align: left;">...</td>
+<td style="text-align: left;">...</td>
+<td style="text-align: left;">...</td>
+<td style="text-align: left;">...</td>
+<td style="text-align: left;">...</td>
+<td style="text-align: left;">...</td>
+<td style="text-align: left;">...</td>
+<td style="text-align: left;">...</td>
+<td style="text-align: left;">...</td>
+<td style="text-align: left;">...</td>
+<td style="text-align: left;">...</td>
+<td style="text-align: left;">...</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Issues in this table:</strong></p>
+<ul>
+<li><strong>1NF Violation (Repeating Groups):</strong> <code>Product1_Name</code>, <code>Product1_Qty</code>, <code>Product1_Price</code>, <code>Product2_Name</code>, <code>Product2_Qty</code>, <code>Product2_Price</code> are repeating groups. Each order can have multiple products, but they are stored horizontally across columns instead of vertically in rows. This means adding a <code>Product3</code> would require adding new columns.</li>
+<li><strong>Redundancy (2NF/3NF Violation):</strong></li>
+<li><code>CustomerName</code>, <code>CustomerEmail</code>, <code>CustomerCity</code> are repeated for every order placed by the same customer (e.g., Alice Smith).</li>
+<li><code>EmployeeName</code> and <code>EmployeeRegion</code> are repeated for every order handled by the same employee (e.g., John Doe).</li>
+<li><code>ProductX_Price</code> is repeated for every order where the same product is sold.</li>
+</ul>
+<hr />
+<h2 id="4-step-by-step-normalization-in-power-query">4. Step-by-Step Normalization in Power Query<a class="headerlink" href="#4-step-by-step-normalization-in-power-query" title="Permanent link">&para;</a></h2>
+<p>We will use the Power Query Editor in Power BI Desktop to transform <code>MonthlySales_Flat</code> into a normalized schema, creating a <code>FactSales</code> table and dimension tables for <code>DimCustomer</code>, <code>DimEmployee</code>, and <code>DimProduct</code>.</p>
+<p><strong>Start in Power BI Desktop:</strong></p>
+<ol>
+<li><strong>Load the data:</strong> Imagine you've loaded this <code>MonthlySales_Flat</code> data from an Excel file or CSV. It appears as a query in the Power Query Editor.</li>
+</ol>
+<h3 id="step-1-create-the-dimcustomer-table">Step 1: Create the <code>DimCustomer</code> Table<a class="headerlink" href="#step-1-create-the-dimcustomer-table" title="Permanent link">&para;</a></h3>
+<p>This table will hold unique customer details.</p>
+<ol>
+<li>
+<p><strong>Duplicate the original query:</strong></p>
+<ul>
+<li>In the Power Query Editor, right-click on the <code>MonthlySales_Flat</code> query in the "Queries" pane (left side).</li>
+<li>Select "Duplicate".</li>
+<li>Rename the new query to <code>DimCustomer</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Select relevant columns:</strong></p>
+<ul>
+<li>In the <code>DimCustomer</code> query, select the columns: <code>CustomerName</code>, <code>CustomerEmail</code>, <code>CustomerCity</code>.</li>
+<li>Right-click on any of the selected column headers and choose "Remove Other Columns".</li>
+</ul>
+</li>
+<li>
+<p><strong>Remove duplicate rows:</strong></p>
+<ul>
+<li>With <code>CustomerName</code>, <code>CustomerEmail</code>, <code>CustomerCity</code> columns still selected, go to the "Home" tab on the ribbon.</li>
+<li>Click "Remove Rows" -&gt; "Remove Duplicates". This ensures each customer appears only once.</li>
+</ul>
+</li>
+<li>
+<p><strong>Add a <code>CustomerID</code>:</strong></p>
+<ul>
+<li>Go to the "Add Column" tab.</li>
+<li>Click "Index Column" -&gt; "From 1". This creates a unique ID for each customer.</li>
+<li>Drag the <code>CustomerID</code> column to the far left, making it the first column.</li>
+<li><strong>Reasoning:</strong> We are creating a unique dimension table for customers, ensuring each customer's details are stored only once (reducing redundancy and improving 3NF). The <code>CustomerID</code> will be our primary key for this dimension.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Resulting <code>DimCustomer</code> Table:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">CustomerID</th>
+<th style="text-align: left;">CustomerName</th>
+<th style="text-align: left;">CustomerEmail</th>
+<th style="text-align: left;">CustomerCity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Alice Smith</td>
+<td style="text-align: left;"><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#97;&#108;&#105;&#99;&#101;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#97;&#108;&#105;&#99;&#101;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></td>
+<td style="text-align: left;">New York</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Bob Johnson</td>
+<td style="text-align: left;"><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#111;&#98;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#98;&#111;&#98;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></td>
+<td style="text-align: left;">Los Angeles</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">Charlie Brown</td>
+<td style="text-align: left;"><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#99;&#104;&#97;&#114;&#108;&#105;&#101;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#99;&#104;&#97;&#114;&#108;&#105;&#101;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></td>
+<td style="text-align: left;">Chicago</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">David Lee</td>
+<td style="text-align: left;"><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#100;&#97;&#118;&#105;&#100;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#100;&#97;&#118;&#105;&#100;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></td>
+<td style="text-align: left;">New York</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">Emily White</td>
+<td style="text-align: left;"><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#101;&#109;&#105;&#108;&#121;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#101;&#109;&#105;&#108;&#121;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></td>
+<td style="text-align: left;">Houston</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">Frank Green</td>
+<td style="text-align: left;"><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#102;&#114;&#97;&#110;&#107;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#102;&#114;&#97;&#110;&#107;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></td>
+<td style="text-align: left;">Miami</td>
+</tr>
+<tr>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">George Black</td>
+<td style="text-align: left;"><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#103;&#101;&#111;&#114;&#103;&#101;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#103;&#101;&#111;&#114;&#103;&#101;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></td>
+<td style="text-align: left;">Seattle</td>
+</tr>
+<tr>
+<td style="text-align: left;">...</td>
+<td style="text-align: left;">...</td>
+<td style="text-align: left;">...</td>
+<td style="text-align: left;">...</td>
+</tr>
+</tbody>
+</table>
+<h3 id="step-2-create-the-dimemployee-table">Step 2: Create the <code>DimEmployee</code> Table<a class="headerlink" href="#step-2-create-the-dimemployee-table" title="Permanent link">&para;</a></h3>
+<p>This table will hold unique employee details.</p>
+<ol>
+<li>
+<p><strong>Duplicate the original query again:</strong></p>
+<ul>
+<li>Right-click on <code>MonthlySales_Flat</code>.</li>
+<li>Select "Duplicate".</li>
+<li>Rename the new query to <code>DimEmployee</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Select relevant columns:</strong></p>
+<ul>
+<li>In the <code>DimEmployee</code> query, select <code>EmployeeName</code>, <code>EmployeeRegion</code>.</li>
+<li>Right-click and "Remove Other Columns".</li>
+</ul>
+</li>
+<li>
+<p><strong>Remove duplicate rows:</strong></p>
+<ul>
+<li>With <code>EmployeeName</code>, <code>EmployeeRegion</code> selected, go to "Home" tab.</li>
+<li>Click "Remove Rows" -&gt; "Remove Duplicates".</li>
+</ul>
+</li>
+<li>
+<p><strong>Add an <code>EmployeeID</code>:</strong></p>
+<ul>
+<li>Go to the "Add Column" tab.</li>
+<li>Click "Index Column" -&gt; "From 1".</li>
+<li>Drag <code>EmployeeID</code> to the far left.</li>
+<li><strong>Reasoning:</strong> Similar to customers, we create a dedicated dimension for employees to remove redundant employee information from the sales transaction table (3NF).</li>
+</ul>
+</li>
+</ol>
+<p><strong>Resulting <code>DimEmployee</code> Table:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">EmployeeID</th>
+<th style="text-align: left;">EmployeeName</th>
+<th style="text-align: left;">EmployeeRegion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">John Doe</td>
+<td style="text-align: left;">North</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Jane Doe</td>
+<td style="text-align: left;">West</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">Sam Spade</td>
+<td style="text-align: left;">Central</td>
+</tr>
+</tbody>
+</table>
+<h3 id="step-3-create-the-dimproduct-table">Step 3: Create the <code>DimProduct</code> Table<a class="headerlink" href="#step-3-create-the-dimproduct-table" title="Permanent link">&para;</a></h3>
+<p>This table will hold unique product details. This step involves unpivoting to address the 1NF violation.</p>
+<ol>
+<li>
+<p><strong>Duplicate the original query again:</strong></p>
+<ul>
+<li>Right-click on <code>MonthlySales_Flat</code>.</li>
+<li>Select "Duplicate".</li>
+<li>Rename the new query to <code>DimProduct_Temp</code>. (We'll clean this up later).</li>
+</ul>
+</li>
+<li>
+<p><strong>Unpivot the Product Groups:</strong></p>
+<ul>
+<li>In <code>DimProduct_Temp</code>, select all columns <em>except</em> the product-related ones: <code>OrderID</code>, <code>OrderDate</code>, <code>CustomerName</code>, <code>CustomerEmail</code>, <code>CustomerCity</code>, <code>EmployeeName</code>, <code>EmployeeRegion</code>.</li>
+<li>Now, select all the product-related columns: <code>Product1_Name</code>, <code>Product1_Qty</code>, <code>Product1_Price</code>, <code>Product2_Name</code>, <code>Product2_Qty</code>, <code>Product2_Price</code>.</li>
+<li>Go to the "Transform" tab.</li>
+<li>Click "Unpivot Columns" -&gt; "Unpivot Selected Columns".<ul>
+<li><strong>Reasoning:</strong> This is crucial for 1NF. It transforms our horizontal "repeating groups" (Product1, Product2) into vertical rows. Now, instead of <code>Product1_Name</code>, <code>Product1_Qty</code> on one row, we'll have separate rows for each distinct product sold in an order.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Filter out NULLs and unnecessary rows:</strong></p>
+<ul>
+<li>You'll now have an <code>Attribute</code> column (e.g., "Product1_Name", "Product1_Qty") and a <code>Value</code> column (the actual product name, quantity, or price).</li>
+<li>Click the filter arrow on the <code>Value</code> column header.</li>
+<li>Uncheck "(null)" to remove rows where no product was sold in a slot.</li>
+<li>Now, only keep the columns that represent product details. Select <code>Attribute</code> and <code>Value</code> columns. Right-click and "Remove Other Columns".</li>
+</ul>
+</li>
+<li>
+<p><strong>Extract Product Number and Detail Type:</strong></p>
+<ul>
+<li>Select the <code>Attribute</code> column.</li>
+<li>Go to "Transform" tab.</li>
+<li>Click "Split Column" -&gt; "By Delimiter".</li>
+<li>Choose "Custom" delimiter <code>_</code>. Select "At the first occurrence of the delimiter". This splits "Product1_Name" into "Product1" and "Name".</li>
+<li>Rename the first split column <code>Attribute.1</code> to <code>ProductIdentifier</code>.</li>
+<li>Rename the second split column <code>Attribute.2</code> to <code>DetailType</code>.</li>
+<li><strong>Reasoning:</strong> We need to separate the unique product identification (e.g., "Product1") from what kind of detail it is (Name, Qty, Price) to pivot effectively.</li>
+</ul>
+</li>
+<li>
+<p><strong>Pivot to get <code>ProductName</code>, <code>Quantity</code>, <code>Price</code> columns:</strong></p>
+<ul>
+<li>Select the <code>DetailType</code> column.</li>
+<li>Go to "Transform" tab.</li>
+<li>Click "Pivot Column".</li>
+<li>In the Pivot Column dialog:<ul>
+<li>"Values Column": Select <code>Value</code>.</li>
+<li>"Advanced options": Select "Don't Aggregate".</li>
+</ul>
+</li>
+<li>Click "OK".<ul>
+<li><strong>Reasoning:</strong> This transforms the <code>DetailType</code> values (Name, Qty, Price) back into columns, but now each <code>ProductIdentifier</code> (e.g., Product1 from Order 1001) is on its own row, with its <code>Name</code>, <code>Qty</code>, and <code>Price</code> in respective columns. This effectively brings the original <code>ProductX_Name</code>, <code>ProductX_Qty</code>, <code>ProductX_Price</code> into a normalized format (<code>ProductName</code>, <code>Quantity</code>, <code>UnitPrice</code>).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Clean up and identify unique products:</strong></p>
+<ul>
+<li>Rename the <code>Name</code> column to <code>ProductName</code>.</li>
+<li>Rename the <code>Qty</code> column to <code>ProductQuantity</code> (we'll remove this in the final <code>DimProduct</code> but keep it for identifying unique combinations here).</li>
+<li>Rename the <code>Price</code> column to <code>UnitPrice</code>.</li>
+<li>Change data types: <code>ProductQuantity</code> to Whole Number, <code>UnitPrice</code> to Decimal Number.</li>
+<li>Select <code>ProductName</code> and <code>UnitPrice</code> columns. Right-click -&gt; "Remove Other Columns".</li>
+<li>Select <code>ProductName</code> and <code>UnitPrice</code> columns. Go to "Home" tab -&gt; "Remove Rows" -&gt; "Remove Duplicates".<ul>
+<li><strong>Reasoning:</strong> We only want unique products and their base price for the dimension table.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Add a <code>ProductID</code>:</strong></p>
+<ul>
+<li>Go to "Add Column" tab.</li>
+<li>Click "Index Column" -&gt; "From 1".</li>
+<li>Rename this new column <code>ProductID</code>. Drag it to the far left.</li>
+<li>Rename the query from <code>DimProduct_Temp</code> to <code>DimProduct</code>.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Resulting <code>DimProduct</code> Table:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">ProductID</th>
+<th style="text-align: left;">ProductName</th>
+<th style="text-align: left;">UnitPrice</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Laptop</td>
+<td style="text-align: left;">1200</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Mouse</td>
+<td style="text-align: left;">25</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">Keyboard</td>
+<td style="text-align: left;">75</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">Monitor</td>
+<td style="text-align: left;">300</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">Webcam</td>
+<td style="text-align: left;">50</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">Printer</td>
+<td style="text-align: left;">250</td>
+</tr>
+<tr>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">Ink Cartridge</td>
+<td style="text-align: left;">30</td>
+</tr>
+<tr>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">USB Drive</td>
+<td style="text-align: left;">15</td>
+</tr>
+<tr>
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">Headphones</td>
+<td style="text-align: left;">100</td>
+</tr>
+<tr>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">Microphone</td>
+<td style="text-align: left;">60</td>
+</tr>
+<tr>
+<td style="text-align: left;">11</td>
+<td style="text-align: left;">External HDD</td>
+<td style="text-align: left;">80</td>
+</tr>
+<tr>
+<td style="text-align: left;">12</td>
+<td style="text-align: left;">Paper</td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr>
+<td style="text-align: left;">13</td>
+<td style="text-align: left;">Scanner</td>
+<td style="text-align: left;">150</td>
+</tr>
+<tr>
+<td style="text-align: left;">14</td>
+<td style="text-align: left;">SSD Drive</td>
+<td style="text-align: left;">60</td>
+</tr>
+<tr>
+<td style="text-align: left;">15</td>
+<td style="text-align: left;">External Monitor</td>
+<td style="text-align: left;">200</td>
+</tr>
+<tr>
+<td style="text-align: left;">...</td>
+<td style="text-align: left;">...</td>
+<td style="text-align: left;">...</td>
+</tr>
+</tbody>
+</table>
+<h3 id="step-4-create-the-factsales-table">Step 4: Create the <code>FactSales</code> Table<a class="headerlink" href="#step-4-create-the-factsales-table" title="Permanent link">&para;</a></h3>
+<p>This will be our central fact table, containing transactional details and foreign keys to our new dimension tables.</p>
+<ol>
+<li>
+<p><strong>Duplicate the original query again:</strong></p>
+<ul>
+<li>Right-click on <code>MonthlySales_Flat</code>.</li>
+<li>Select "Duplicate".</li>
+<li>Rename the new query to <code>FactSales_Temp</code>. (We will clean this up).</li>
+</ul>
+</li>
+<li>
+<p><strong>Unpivot the Product Groups (similar to DimProduct, but keeping order context):</strong></p>
+<ul>
+<li>In <code>FactSales_Temp</code>, select all columns <em>except</em> the product-related ones: <code>OrderID</code>, <code>OrderDate</code>, <code>CustomerName</code>, <code>CustomerEmail</code>, <code>CustomerCity</code>, <code>EmployeeName</code>, <code>EmployeeRegion</code>.</li>
+<li>Select the product-related columns: <code>Product1_Name</code>, <code>Product1_Qty</code>, <code>Product1_Price</code>, <code>Product2_Name</code>, <code>Product2_Qty</code>, <code>Product2_Price</code>.</li>
+<li>Go to "Transform" tab.</li>
+<li>Click "Unpivot Columns" -&gt; "Unpivot Selected Columns".<ul>
+<li><strong>Reasoning:</strong> Again, converting horizontal product groups to vertical rows for each order line item. This is crucial for analyzing individual products within an order.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Filter out NULL products:</strong></p>
+<ul>
+<li>Filter the <code>Value</code> column to remove "(null)" values, ensuring we only keep actual sales items.</li>
+</ul>
+</li>
+<li>
+<p><strong>Extract <code>ProductIdentifier</code> and <code>DetailType</code>:</strong></p>
+<ul>
+<li>Select the <code>Attribute</code> column.</li>
+<li>Go to "Transform" tab.</li>
+<li>Click "Split Column" -&gt; "By Delimiter".</li>
+<li>Choose "Custom" delimiter <code>_</code>. Select "At the first occurrence of the delimiter".</li>
+<li>Rename <code>Attribute.1</code> to <code>ProductIdentifier</code> and <code>Attribute.2</code> to <code>DetailType</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Pivot to get <code>ProductName</code>, <code>Quantity</code>, <code>Price</code> columns for each line item:</strong></p>
+<ul>
+<li>Select the <code>DetailType</code> column.</li>
+<li>Go to "Transform" tab.</li>
+<li>Click "Pivot Column".</li>
+<li>In the Pivot Column dialog:<ul>
+<li>"Values Column": Select <code>Value</code>.</li>
+<li>"Advanced options": Select "Don't Aggregate".</li>
+</ul>
+</li>
+<li>Click "OK".</li>
+<li>Rename the new columns: <code>Name</code> to <code>ProductName</code>, <code>Qty</code> to <code>Quantity</code>, <code>Price</code> to <code>UnitPrice</code>.</li>
+<li>Change data types: <code>Quantity</code> to Whole Number, <code>UnitPrice</code> to Decimal Number.</li>
+</ul>
+</li>
+<li>
+<p><strong>Merge <code>FactSales_Temp</code> with <code>DimCustomer</code> to get <code>CustomerID</code>:</strong></p>
+<ul>
+<li>Go to the "Home" tab.</li>
+<li>Click "Merge Queries" -&gt; "Merge Queries as New".</li>
+<li>Select <code>FactSales_Temp</code> as the first table.</li>
+<li>Select <code>DimCustomer</code> as the second table.</li>
+<li>Select <code>CustomerName</code> and <code>CustomerEmail</code> in <code>FactSales_Temp</code>, then <code>CustomerName</code> and <code>CustomerEmail</code> in <code>DimCustomer</code>. (This composite key ensures accurate matching, especially if customer names aren't unique without email).</li>
+<li>Choose "Left Outer" Join Kind.</li>
+<li>Click "OK".</li>
+<li>In the new merged column (e.g., <code>DimCustomer</code> or <code>NewColumn</code>), click the expand icon.</li>
+<li>Uncheck "Select All Columns". Only select <code>CustomerID</code>.</li>
+<li>Uncheck "Use original column name as prefix".</li>
+<li>Click "OK".</li>
+<li><strong>Reasoning:</strong> We replace the repetitive <code>CustomerName</code>, <code>CustomerEmail</code>, <code>CustomerCity</code> with a single <code>CustomerID</code> foreign key, adhering to 2NF/3NF.</li>
+</ul>
+</li>
+<li>
+<p><strong>Merge <code>FactSales_Temp</code> with <code>DimEmployee</code> to get <code>EmployeeID</code>:</strong></p>
+<ul>
+<li>Click "Merge Queries" -&gt; "Merge Queries". (This time we merge into the current <code>FactSales_Temp</code> table).</li>
+<li>Select <code>FactSales_Temp</code> as the first table.</li>
+<li>Select <code>DimEmployee</code> as the second table.</li>
+<li>Select <code>EmployeeName</code> in <code>FactSales_Temp</code>, then <code>EmployeeName</code> in <code>DimEmployee</code>.</li>
+<li>Choose "Left Outer" Join Kind.</li>
+<li>Click "OK".</li>
+<li>Expand the new merged column, selecting only <code>EmployeeID</code>. Uncheck "Use original column name as prefix".</li>
+<li><strong>Reasoning:</strong> Replacing redundant employee details with an <code>EmployeeID</code> foreign key.</li>
+</ul>
+</li>
+<li>
+<p><strong>Merge <code>FactSales_Temp</code> with <code>DimProduct</code> to get <code>ProductID</code>:</strong></p>
+<ul>
+<li>Click "Merge Queries" -&gt; "Merge Queries".</li>
+<li>Select <code>FactSales_Temp</code> as the first table.</li>
+<li>Select <code>DimProduct</code> as the second table.</li>
+<li>Select <code>ProductName</code> in <code>FactSales_Temp</code>, then <code>ProductName</code> in <code>DimProduct</code>.</li>
+<li>Choose "Left Outer" Join Kind.</li>
+<li>Click "OK".</li>
+<li>Expand the new merged column, selecting only <code>ProductID</code>. Uncheck "Use original column name as prefix".</li>
+<li><strong>Reasoning:</strong> Replacing repetitive product details (name, price) with a <code>ProductID</code> foreign key.</li>
+</ul>
+</li>
+<li>
+<p><strong>Remove original descriptive columns and unnecessary interim columns:</strong></p>
+<ul>
+<li>Now that we have <code>CustomerID</code>, <code>EmployeeID</code>, and <code>ProductID</code>, remove the original <code>CustomerName</code>, <code>CustomerEmail</code>, <code>CustomerCity</code>, <code>EmployeeName</code>, <code>EmployeeRegion</code>, <code>ProductName</code> (the original one from the source table), <code>ProductIdentifier</code> columns.</li>
+<li>Keep: <code>OrderID</code>, <code>OrderDate</code>, <code>Quantity</code>, <code>UnitPrice</code>, <code>CustomerID</code>, <code>EmployeeID</code>, <code>ProductID</code>.</li>
+<li><strong>Correction for <code>FactSales</code> (<code>UnitPrice</code>):</strong> When we pivoted in step 5, we got <code>UnitPrice</code> for each line item. We will use this <code>UnitPrice</code> (which represents the sales price <em>at the time of the transaction</em>) to calculate <code>LineTotal</code>.<ul>
+<li>Select <code>Quantity</code> and <code>UnitPrice</code> columns.</li>
+<li>Go to "Add Column" tab -&gt; "Standard" -&gt; "Multiply".</li>
+<li>Rename the new column <code>Multiplication</code> to <code>LineTotal</code>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Clean up and finalize <code>FactSales</code>:</strong></p>
+<ul>
+<li>Ensure data types are correct (e.g., <code>OrderID</code> as Text or Whole Number, <code>OrderDate</code> as Date, <code>Quantity</code> as Whole Number, <code>UnitPrice</code> as Decimal Number, <code>LineTotal</code> as Decimal Number).</li>
+<li>Remove any remaining temporary columns like <code>ProductQuantity</code> (from step 6. and any intermediate <code>Attribute</code>/<code>Value</code> columns from pivoting).</li>
+<li>Rename the query from <code>FactSales_Temp</code> to <code>FactSales</code>.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Resulting <code>FactSales</code> Table:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">OrderID</th>
+<th style="text-align: left;">OrderDate</th>
+<th style="text-align: left;">Quantity</th>
+<th style="text-align: left;">UnitPrice</th>
+<th style="text-align: left;">LineTotal</th>
+<th style="text-align: left;">CustomerID</th>
+<th style="text-align: left;">EmployeeID</th>
+<th style="text-align: left;">ProductID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1001</td>
+<td style="text-align: left;">2025-01-15</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1200</td>
+<td style="text-align: left;">1200</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr>
+<td style="text-align: left;">1001</td>
+<td style="text-align: left;">2025-01-15</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">25</td>
+<td style="text-align: left;">50</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr>
+<td style="text-align: left;">1002</td>
+<td style="text-align: left;">2025-01-15</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">75</td>
+<td style="text-align: left;">75</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">3</td>
+</tr>
+<tr>
+<td style="text-align: left;">1003</td>
+<td style="text-align: left;">2025-01-16</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">300</td>
+<td style="text-align: left;">300</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr>
+<td style="text-align: left;">1003</td>
+<td style="text-align: left;">2025-01-16</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">50</td>
+<td style="text-align: left;">50</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr>
+<td style="text-align: left;">1004</td>
+<td style="text-align: left;">2025-01-16</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">250</td>
+<td style="text-align: left;">250</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">6</td>
+</tr>
+<tr>
+<td style="text-align: left;">1004</td>
+<td style="text-align: left;">2025-01-16</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">30</td>
+<td style="text-align: left;">120</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">7</td>
+</tr>
+<tr>
+<td style="text-align: left;">1005</td>
+<td style="text-align: left;">2025-01-17</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">15</td>
+<td style="text-align: left;">75</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">8</td>
+</tr>
+<tr>
+<td style="text-align: left;">1006</td>
+<td style="text-align: left;">2025-02-01</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">100</td>
+<td style="text-align: left;">100</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">9</td>
+</tr>
+<tr>
+<td style="text-align: left;">1006</td>
+<td style="text-align: left;">2025-02-01</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">60</td>
+<td style="text-align: left;">60</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">10</td>
+</tr>
+<tr>
+<td style="text-align: left;">1007</td>
+<td style="text-align: left;">2025-02-02</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1200</td>
+<td style="text-align: left;">1200</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr>
+<td style="text-align: left;">1007</td>
+<td style="text-align: left;">2025-02-02</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">80</td>
+<td style="text-align: left;">80</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">11</td>
+</tr>
+<tr>
+<td style="text-align: left;">1008</td>
+<td style="text-align: left;">2025-02-03</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">75</td>
+<td style="text-align: left;">75</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">3</td>
+</tr>
+<tr>
+<td style="text-align: left;">1008</td>
+<td style="text-align: left;">2025-02-03</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">25</td>
+<td style="text-align: left;">25</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr>
+<td style="text-align: left;">...</td>
+<td style="text-align: left;">...</td>
+<td style="text-align: left;">...</td>
+<td style="text-align: left;">...</td>
+<td style="text-align: left;">...</td>
+<td style="text-align: left;">...</td>
+<td style="text-align: left;">...</td>
+<td style="text-align: left;">...</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-final-normalized-tables-and-relationships">5. Final Normalized Tables and Relationships<a class="headerlink" href="#5-final-normalized-tables-and-relationships" title="Permanent link">&para;</a></h2>
+<p>After performing these transformations in Power Query, you would click "Close &amp; Apply" to load these tables into your Power BI Desktop model.</p>
+<p>Your data model would now consist of:</p>
+<ol>
+<li><strong><code>FactSales</code>:</strong> Your central fact table containing <code>OrderID</code>, <code>OrderDate</code>, <code>Quantity</code>, <code>UnitPrice</code>, <code>LineTotal</code>, and foreign keys (<code>CustomerID</code>, <code>EmployeeID</code>, <code>ProductID</code>).</li>
+<li><strong><code>DimCustomer</code>:</strong> A dimension table with <code>CustomerID</code> (Primary Key), <code>CustomerName</code>, <code>CustomerEmail</code>, <code>CustomerCity</code>.</li>
+<li><strong><code>DimEmployee</code>:</strong> A dimension table with <code>EmployeeID</code> (Primary Key), <code>EmployeeName</code>, <code>EmployeeRegion</code>.</li>
+<li><strong><code>DimProduct</code>:</strong> A dimension table with <code>ProductID</code> (Primary Key), <code>ProductName</code>, <code>UnitPrice</code>.<ul>
+<li><em>Note on UnitPrice in DimProduct:</em> This <code>UnitPrice</code> typically represents the standard or current list price. The <code>UnitPrice</code> in <code>FactSales</code> (which was derived from the raw data) represents the price <em>at the time of sale</em>, which can sometimes differ due to discounts or price changes. Both are valuable depending on the analysis.</li>
+</ul>
+</li>
+</ol>
+<h3 id="relationships-in-power-bi-model-view">Relationships in Power BI Model View<a class="headerlink" href="#relationships-in-power-bi-model-view" title="Permanent link">&para;</a></h3>
+<p>In Power BI's "Model View," you would establish the following relationships:</p>
+<ul>
+<li><strong><code>FactSales[CustomerID]</code></strong> Many-to-one (\Leftarrow) <strong><code>DimCustomer[CustomerID]</code></strong></li>
+<li><strong><code>FactSales[EmployeeID]</code></strong> Many-to-one (\Leftarrow) <strong><code>DimEmployee[EmployeeID]</code></strong></li>
+<li><strong><code>FactSales[ProductID]</code></strong> Many-to-one (\Leftarrow) <strong><code>DimProduct[ProductID]</code></strong></li>
+</ul>
+<p>These relationships connect your transactional <code>FactSales</code> table to the descriptive details in your dimension tables, forming a robust star schema.</p>
+<hr />
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
+<p>Data normalization is a fundamental step in preparing your data for effective analysis in Power BI. By systematically organizing your data into smaller, related tables using Power Query, you achieve:</p>
+<ul>
+<li><strong>Reduced data redundancy:</strong> Storing information once, saving space and improving refresh times.</li>
+<li><strong>Enhanced data integrity:</strong> Ensuring consistency and accuracy across your model.</li>
+<li><strong>Optimized performance:</strong> Allowing Power BI's engine to work more efficiently, leading to faster reports.</li>
+<li><strong>Simplified DAX calculations:</strong> Making it easier to build powerful measures and insights.</li>
+</ul>
+<p>While the process might seem intricate at first, especially with techniques like unpivoting and merging, mastering these Power Query transformations will significantly elevate your Power BI data modeling skills, enabling you to build truly impactful and scalable solutions. Always aim for a well-normalized, star-schema-like structure for your Power BI datasets.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.path", "navigation.top", "toc.follow", "search.suggest", "navigation.tracking"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>
